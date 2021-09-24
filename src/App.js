@@ -1,24 +1,34 @@
-import { StyledEngineProvider, ThemeProvider } from '@material-ui/core';
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import { useRoutes } from 'react-router-dom';
-import GlobalStyles from './components/GlobalStyles';
-import routes from './routes';
-import theme from './theme';
-import { firebaseConfig } from './utils/FirebaseUtil';
+import React, { Component } from 'react';
+//import FirstComponent from './components/learning-examples/FirstComponent'
+//import SecondComponent from './components/learning-examples/SecondComponent'
+//import ThirdComponent from './components/learning-examples/ThirdComponent'
+//import Counter from './components/counter/Counter'
+import InsuranceApp from './components/insurance/insuranceApp'
+import './App.css';
+import './bootstrap.css';
 
-firebaseConfig();
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        {/*<Counter/>*/}
+        <InsuranceApp />
+      </div>
+    );
+  }
+}
 
-const App = () => {
-  const content = useRoutes(routes);
-
-  return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        {content}
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
-};
+// class LearningComponents extends Component {
+//   render() {
+//     return (
+//       <div className="LearningComponents">
+//          My Hello World
+//          <FirstComponent></FirstComponent>
+//          <SecondComponent></SecondComponent>
+//          <ThirdComponent></ThirdComponent>
+//       </div>
+//     );
+//   }
+// }
 
 export default App;
