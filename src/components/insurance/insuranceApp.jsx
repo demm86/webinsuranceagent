@@ -13,6 +13,9 @@ import WelcomeComponent from './WelcomeComponent.jsx'
 import UsersComponent from './Users/UsersComponent'
 import ListUsersComponent from './Users/ListUsersComponent'
 
+import ClientComponent from './Client/ClientComponent'
+import ListClientComponent from './Client/ListClientComponent'
+
 
 class TodoApp extends Component {
     render() {
