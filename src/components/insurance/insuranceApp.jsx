@@ -29,12 +29,12 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/user/add" component={UsersComponent}/>
                             <AuthenticatedRoute path="/user/:id" component={UsersComponent}/>
                             <AuthenticatedRoute path="/user" component={ListUsersComponent}/>
-{/* 
+ 
 
-                            <AuthenticatedRoute path="/todos/add" component={TodoComponent}/>
-                            <AuthenticatedRoute path="/todos/:id" component={TodoComponent}/>
-                            <AuthenticatedRoute path="/todos" component={ListTodosComponent}/>
-
+                            <AuthenticatedRoute path="/client/add" component={ClientComponent}/>
+                            <AuthenticatedRoute path="/client/:id" component={ClientComponent}/>
+                            <AuthenticatedRoute path="/client" component={ListClientComponent}/>
+{/*
                             <AuthenticatedRoute path="/profile/add" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile/:id" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile" component={ListTodosComponent}/>
