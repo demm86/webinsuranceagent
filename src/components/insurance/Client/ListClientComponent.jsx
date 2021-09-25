@@ -8,7 +8,7 @@ class ListClientComponent extends Component {
         console.log('constructor')
         super(props)
         this.state = {
-            client: [],
+            clients: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -40,7 +40,7 @@ class ListClientComponent extends Component {
             .then(
                 response => {
                     console.log(response);
-                    this.setState({ client: response.data })
+                    this.setState({ clients: response.data })
                 }
             )
     }
