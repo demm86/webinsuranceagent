@@ -17,20 +17,8 @@ import ListUsersComponent from './Users/ListUsersComponent'
 import ClientComponent from './Client/ClientComponent'
 import ListClientComponent from './Client/ListClientComponent'
 
-<<<<<<< HEAD
 import EmployeeComponent from './Employee/EmployeeComponent'
 import ListEmployeeComponent from './Employee/ListEmployeeComponent'
-=======
-import PolicyStatusComponent from './PolicyStatus/PolicyStatusComponent'
-import ListPolicyStatusComponent from './PolicyStatus/ListPolicyStatusComponent'
-
-import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
-import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
-
-
-import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
-
->>>>>>> 2054d5518ad9dff0eebeb8c1ff34a660e2463b6e
 
 import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
 
@@ -60,21 +48,9 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
 
-<<<<<<< HEAD
                                         <AuthenticatedRoute path="/employee/add" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee/:id" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee" component={ListEmployeeComponent}/>
-=======
-
-                                        <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent} />
-                                        <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent} />
-                                        <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent} />
-
-                                        <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent} />
-                                        <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent} />
-                                        <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent} />
-
->>>>>>> 2054d5518ad9dff0eebeb8c1ff34a660e2463b6e
 
 
                                         {/*
@@ -90,13 +66,10 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
                             <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
 
-<<<<<<< HEAD
                             <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent}/>
                             <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent}/>
                             <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent}/>
 {/*
-=======
->>>>>>> 2054d5518ad9dff0eebeb8c1ff34a660e2463b6e
                             <AuthenticatedRoute path="/profile/add" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile/:id" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile" component={ListTodosComponent}/>
