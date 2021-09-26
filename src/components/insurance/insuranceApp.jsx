@@ -19,6 +19,9 @@ import ListClientComponent from './Client/ListClientComponent'
 import ClientAssignmentComponent from './ClientAssignment/ClientAssignmentComponent'
 import ListClientAssignmentComponent from './ClientAssignment/ListClientAssignmentComponent'
 
+import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
+import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
+
 
 class TodoApp extends Component {
     render() {
