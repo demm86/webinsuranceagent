@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import AuthenticationService from './AuthenticationService.js'
-
+import { Navbar,Container ,Nav,NavDropdown   } from "react-bootstrap";
 
 class HeaderComponent extends Component {
     render() {
@@ -10,26 +10,28 @@ class HeaderComponent extends Component {
 
         return (
             <header>
-                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a href="" className="navbar-brand">Insurance</a></div>
-                    <ul className="navbar-nav">
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/">Home</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Todos</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/User">User</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/Client">Client</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/ClientAssignment">Client Assignment</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/AgentAssignment">Agent Assignment</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/Profile">Profile</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/InsurancePolicy">Insurance Policy</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/Employee">Employee</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/Customer">Customer</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/PolicyStatus">Policy Status</Link></li>}
-                    </ul>
-                    <ul className="navbar-nav navbar-collapse justify-content-end">
-                        {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/logout" onClick={AuthenticationService.logout}>Logout</Link></li>}
-                    </ul>
-                </nav>
+                <Navbar bg="light" expand="lg">
+                    <Container>
+                        <Navbar.Brand href="#home">Insurance Kodigo</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/welcome/">Home</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Users">Users</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Client">Client</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Profile">Profile</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/InsurancePolicy">InsurancePolicy</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Employee">Employee</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Customer">Customer</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Policy">Policy</Nav.Link></li>}
+
+                            {!isUserLoggedIn && <li className="pull-right float-end"><Nav.Link  className="nav-link" href="/login">Login</Nav.Link ></li>}
+                            {isUserLoggedIn && <li className="pull-right float-end"><Nav.Link  className="nav-link" href="/logout" onClick={AuthenticationService.logout}>Logout</Nav.Link ></li>}   
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+              
             </header>
         )
     }

@@ -3,16 +3,20 @@ import React, { Component } from 'react';
 //import SecondComponent from './components/learning-examples/SecondComponent'
 //import ThirdComponent from './components/learning-examples/ThirdComponent'
 //import Counter from './components/counter/Counter'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import InsuranceApp from './components/insurance/insuranceApp'
+
 import './App.css';
-import './bootstrap.css';
+//import './bootstrap.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {/*<Counter/>*/}
+     
+
         <InsuranceApp />
+     
       </div>
     );
   }

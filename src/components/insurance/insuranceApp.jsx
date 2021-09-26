@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 import AuthenticatedRoute from './AuthenticatedRoute.jsx'
 import LoginComponent from './LoginComponent.jsx'
 import ErrorComponent from './ErrorComponent.jsx'
@@ -16,41 +17,40 @@ import ListUsersComponent from './Users/ListUsersComponent'
 import ClientComponent from './Client/ClientComponent'
 import ListClientComponent from './Client/ListClientComponent'
 
+import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
+
+
+/*
 import ClientAssignmentComponent from './ClientAssignment/ClientAssignmentComponent'
 import ListClientAssignmentComponent from './ClientAssignment/ListClientAssignmentComponent'
-
-import AgentAssignmentComponent from './AgentAssignment/AgentAssignmentComponent'
-import ListAgentAssignmentComponent from './AgentAssignment/ListAgentAssignmentComponent'
-
-import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
-import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
-
-import PolicyStatusComponent from './PolicyStatus/PolicyStatusComponent'
-import ListPolicyStatusComponent from './PolicyStatus/ListPolicyStatusComponent'
-
-
+*/
 
 class TodoApp extends Component {
     render() {
         return (
-            <div className="TodoApp">
-                <Router>
-                    <>
-                        <HeaderComponent/>
-                        <Switch>
-                            <Route path="/" exact component={LoginComponent}/>
-                            <Route path="/login" component={LoginComponent}/>
-                            <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
+            <Container>
+                <Row>
+                    <Col>
+                        <div className="TodoApp">
+                       
+                            <Router>
+                                <>
+                                    <HeaderComponent />
+                               
+                                    <Switch>
+                                        <Route path="/" exact component={LoginComponent} />
+                                        <Route path="/login" component={LoginComponent} />
+                                        <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
 
-                            <AuthenticatedRoute path="/user/add" component={UsersComponent}/>
-                            <AuthenticatedRoute path="/user/:id" component={UsersComponent}/>
-                            <AuthenticatedRoute path="/user" component={ListUsersComponent}/>
- 
+                                        <AuthenticatedRoute path="/users/Add" component={UsersComponent} />
+                                        <AuthenticatedRoute path="/users/:id" component={UsersComponent} />
+                                        <AuthenticatedRoute path="/users" component={ListUsersComponent} />
 
-                            <AuthenticatedRoute path="/client/add" component={ClientComponent}/>
-                            <AuthenticatedRoute path="/client/:id" component={ClientComponent}/>
-                            <AuthenticatedRoute path="/client" component={ListClientComponent}/>
 
+                                        <AuthenticatedRoute path="/client/add" component={ClientComponent} />
+                                        <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
+                                        <AuthenticatedRoute path="/client" component={ListClientComponent} />
+                                        {/*
                             <AuthenticatedRoute path="/clientAssignment/add" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment/:id" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment" component={ListClientAssignmentComponent}/>
@@ -85,16 +85,21 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/Policy/:id" component={TodoComponent}/>
                             <AuthenticatedRoute path="/Policy" component={ListTodosComponent}/> */}
 
-                            <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
-                            
-                            <Route component={ErrorComponent}/>
-                        </Switch>
-                        <FooterComponent/>
-                    </>
-                </Router>
-                {/*<LoginComponent/>
+                                        <AuthenticatedRoute path="/logout" component={LogoutComponent} />
+
+                                        <Route component={ErrorComponent} />
+                                    </Switch>
+                                  
+                                    <FooterComponent />
+                                </>
+                            </Router>
+                            {/*<LoginComponent/>
                 <WelcomeComponent/>*/}
-            </div>
+                        </div>
+                     
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
