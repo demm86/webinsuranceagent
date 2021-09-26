@@ -17,6 +17,13 @@ import ListUsersComponent from './Users/ListUsersComponent'
 import ClientComponent from './Client/ClientComponent'
 import ListClientComponent from './Client/ListClientComponent'
 
+import PolicyStatusComponent from './PolicyStatus/PolicyStatusComponent'
+import ListPolicyStatusComponent from './PolicyStatus/ListPolicyStatusComponent'
+
+import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
+import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
+
+
 import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
 
 
@@ -32,11 +39,11 @@ class TodoApp extends Component {
                 <Row>
                     <Col>
                         <div className="TodoApp">
-                       
+
                             <Router>
                                 <>
                                     <HeaderComponent />
-                               
+
                                     <Switch>
                                         <Route path="/" exact component={LoginComponent} />
                                         <Route path="/login" component={LoginComponent} />
@@ -50,6 +57,18 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/client/add" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
+
+
+                                        <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent} />
+                                        <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent} />
+                                        <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent} />
+
+                                        <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent} />
+                                        <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent} />
+                                        <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent} />
+
+
+
                                         {/*
                             <AuthenticatedRoute path="/clientAssignment/add" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment/:id" component={ClientAssignmentComponent}/>
@@ -59,13 +78,6 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
                             <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
 
-<<<<<<< HEAD
-=======
-                            <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent}/>
-                            <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent}/>
-                            <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent}/>
-{/*
->>>>>>> c09556a314a40a528fcd70042376ab522882bad2
                             <AuthenticatedRoute path="/profile/add" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile/:id" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile" component={ListTodosComponent}/>
@@ -88,14 +100,14 @@ class TodoApp extends Component {
 
                                         <Route component={ErrorComponent} />
                                     </Switch>
-                                  
+
                                     <FooterComponent />
                                 </>
                             </Router>
                             {/*<LoginComponent/>
                 <WelcomeComponent/>*/}
                         </div>
-                     
+
                     </Col>
                 </Row>
             </Container>
