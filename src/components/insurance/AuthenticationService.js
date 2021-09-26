@@ -2,12 +2,14 @@ import axios from 'axios'
 import { API_URL } from '../../Constants'
 
 export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+export const TOKEN_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedToken'
 
 class AuthenticationService {
 
     executeBasicAuthenticationService(username, password) {
         return axios.get(`${API_URL}/basicauth`,
             { headers: { authorization: this.createBasicAuthToken(username, password) } })
+            
     }
 
     executeJwtAuthenticationService(username, password) {
@@ -29,6 +31,7 @@ class AuthenticationService {
     }
 
     registerSuccessfulLoginForJwt(username, token) {
+        sessionStorage.setItem(TOKEN_NAME_SESSION_ATTRIBUTE_NAME, token)
         sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
         this.setupAxiosInterceptors(this.createJWTToken(token))
     }
@@ -40,6 +43,7 @@ class AuthenticationService {
 
     logout() {
         sessionStorage.removeItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+        sessionStorage.removeItem(TOKEN_NAME_SESSION_ATTRIBUTE_NAME);
     }
 
     isUserLoggedIn() {
@@ -65,8 +69,26 @@ class AuthenticationService {
             }
         )
     }
+
+    setupAxiosInterceptorsConst() {
+
+        axios.interceptors.request.use(
+            (config) => {
+                if (this.isUserLoggedIn()) {
+                    config.headers.authorization = this.createJWTToken(sessionStorage.getItem(TOKEN_NAME_SESSION_ATTRIBUTE_NAME))
+                }
+                return config
+            }
+        )
+    }
+
     getsetupAxiosInterceptors(){
+        this.setupAxiosInterceptorsConst();
         return axios;
+    }
+
+    getTokenAxios(){
+        return  sessionStorage.getItem(TOKEN_NAME_SESSION_ATTRIBUTE_NAME);
     }
 }
 

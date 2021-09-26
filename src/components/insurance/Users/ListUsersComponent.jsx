@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import UsersDataService from '../../../api/insurance/UsersDataService'
 import AuthenticationService from '../AuthenticationService'
-import moment from 'moment'
 
+import { Form, Col, Row, Button,ButtonGroup  } from "react-bootstrap";
+
+import * as Icon from 'react-bootstrap-icons';
 class ListUsersComponent extends Component {
     constructor(props) {
         console.log('constructor')
@@ -36,6 +38,7 @@ class ListUsersComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
+
         UsersDataService.retrieveAllUsers()
             .then(
                 response => {
@@ -82,36 +85,55 @@ class ListUsersComponent extends Component {
         console.log('render')
         return (
             <div>
-                <h1 className="left">List Todos</h1>
-                {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
-                <div className="container">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>User ID Profile</th>
-                                <th>User Alias</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.users.map(
-                                    users =>
-                                        <tr key={users.idUser}>
-                                            <td>{users.idProfile}</td>
-                                            <td>{users.userAlias}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(users.idUser)}>Update</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(users.idUser)}>Delete</button></td>
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                    <div className="row">
-                        <button className="btn btn-success" onClick={this.addTodoClicked}>Add</button>
-                    </div>
-                </div>
+                <Row>
+                    <Col md={{ span: 6, offset: 3 }}>
+
+                        <div className="container">
+
+                            <h2>List Users</h2>
+                            {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
+
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>User ID Profile</th>
+                                        <th>User Alias</th>
+                                        <th>Update</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.users.map(
+                                            users =>
+                                                <tr key={users.idUser}>
+                                                    <td>{users.idProfile}</td>
+                                                    <td>{users.userAlias}</td>
+                                                    <td>
+                                                        <ButtonGroup className="float-end" aria-label="Basic example">
+                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(users.idUser)}><Icon.Trash></Icon.Trash></Button>
+                                                            <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(users.idUser)}><Icon.Save></Icon.Save></Button>
+                                                        </ButtonGroup>
+
+
+                                                    </td>
+                                                </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                            <div className="">
+                                <Row>
+                                    <Col>
+                                        <button className="btn btn-success float-end" onClick={this.addTodoClicked}><Icon.PlusCircle></Icon.PlusCircle></button>
+                                    </Col>
+
+                                </Row>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+
             </div>
         )
     }
