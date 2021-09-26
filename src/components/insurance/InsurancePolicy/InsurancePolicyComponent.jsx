@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import InsurancePolicy from '../../../api/insurance/InsurancePolicyDataService'
-import AuthenticationService from '../AuthenticationService'
+import AuthenticationService from '../AuthenticationService';
 import InsurancePolicyDataService from '../../../api/insurance/InsurancePolicyDataService';
 
-class ClientComponent extends Component {
+class InsurancePolicyComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             id: this.props.match.params.id,
-            description: '',
-            targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -26,12 +23,12 @@ class ClientComponent extends Component {
             return
         }
 
-        let insuranceName = AuthenticationService.getLoggedInClientName()
+        let username = AuthenticationService.getLoggedInUserName()
 
-        InsurancePolicy.retrieveTodo(insuranceName, this.state.id)
+        InsurancePolicyDataService.retrieveInsurancePolicy(username, this.state.id)
             .then(response => this.setState({
-                description: response.data.description,
-                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+                //description: response.data.description,
+                //targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
             }))
     }
 
@@ -52,7 +49,7 @@ class ClientComponent extends Component {
     }
 
     onSubmit(values) {
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let username = AuthenticationService.getLoggedInUserName()
 
         let todo = {
             id: this.state.id,
@@ -61,10 +58,10 @@ class ClientComponent extends Component {
         }
 
         if (this.state.id === -1) {
-            InsurancePolicyDataService.createTodo(clientname, todo)
+            InsurancePolicyDataService.createinsurancePolicy(username, todo)
                 .then(() => this.props.history.push('/todos'))
         } else {
-            InsurancePolicyDataService.updateTodo(clientname, this.state.id, todo)
+            InsurancePolicyDataService.updateTodo(username, this.state.id, todo)
                 .then(() => this.props.history.push('/todos'))
         }
 
@@ -78,7 +75,7 @@ class ClientComponent extends Component {
 
         return (
             <div>
-                <h1>Todo</h1>
+                <h1>Insurance Policy</h1>
                 <div className="container">
                     <Formik
                         initialValues={{ description, targetDate }}
@@ -115,4 +112,4 @@ class ClientComponent extends Component {
     }
 }
 
-export default ClientComponent
+export default InsurancePolicyComponent

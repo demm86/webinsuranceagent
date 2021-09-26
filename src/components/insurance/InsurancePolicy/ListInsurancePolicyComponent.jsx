@@ -42,15 +42,15 @@ class ListInsurancePolicyComponent extends Component {
             .then(
                 response => {
                     console.log(response);
-                    this.setState({ clients: response.data })
+                    this.setState({ insurancePolicy: response.data })
                 }
             )
     }
 
     deleteTodoClicked(id) {
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let username = AuthenticationService.getLoggedInClientName()
         //console.log(id + " " + username);
-        InsurancePolicyDataService.deleteTodo(clientname, id)
+        InsurancePolicyDataService.deleteTodo(username, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -61,12 +61,12 @@ class ListInsurancePolicyComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/InsurnacePolicy/Add`)
+        this.props.history.push(`/InsurancePolicy/add`)
     }
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/InsurnacePolicy/${id}`)
+        this.props.history.push(`/Users/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -85,7 +85,7 @@ class ListInsurancePolicyComponent extends Component {
         
         return(
             <div>
-                <h1 className="left">List Todos</h1>
+                <h1 className="left">List Insurance Policy</h1>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
@@ -111,28 +111,28 @@ class ListInsurancePolicyComponent extends Component {
                         <tbody>
                             {
                                 this.state.insurancePolicy.map(
-                                    insurancePolicy =>
-                                        <tr key={insurancePolicy.idInsurancePolicy}>
-                                            <td>{insurancePolicy.idClient}</td>
-                                            <td>{insurancePolicy.selliDAgent}</td>
-                                            <td>{insurancePolicy.idType}</td>
-                                            <td>{insurancePolicy.idStatus}</td>
-                                            <td>{insurancePolicy.period}</td>
-                                            <td>{insurancePolicy.value}</td>
-                                            <td>{insurancePolicy.deductible}</td>
-                                            <td>{insurancePolicy.coverageAmount}</td>
-                                            <td>{insurancePolicy.monthlyFee}</td>
-                                            <td>{insurancePolicy.comission}</td>
-                                            <td>{insurancePolicy.active}</td>
-                                            <td><button className="btn outline-success" onClick={() => this.updateTodoClicked(insurancePolicy.idInsurancePolicy)}>Update</button></td>
-                                            <td><button className="btn outline-warning" onClick={() => this.deleteTodoClicked(insurancePolicy.idInsurancePolicy)}>Delete</button></td>
+                                    insurancePolicys =>
+                                        <tr key={insurancePolicys.idInsurancePolicy}>
+                                            <td>{insurancePolicys.idClient}</td>
+                                            <td>{insurancePolicys.selliDAgent}</td>
+                                            <td>{insurancePolicys.idType}</td>
+                                            <td>{insurancePolicys.idStatus}</td>
+                                            <td>{insurancePolicys.period}</td>
+                                            <td>{insurancePolicys.value}</td>
+                                            <td>{insurancePolicys.deductible}</td>
+                                            <td>{insurancePolicys.coverageAmount}</td>
+                                            <td>{insurancePolicys.monthlyFee}</td>
+                                            <td>{insurancePolicys.comission}</td>
+                                            <td>{insurancePolicys.active}</td>
+                                            <td><button className="btn outline-success" onClick={() => this.updateTodoClicked(insurancePolicys.idInsurancePolicy)}>Update</button></td>
+                                            <td><button className="btn outline-warning" onClick={() => this.deleteTodoClicked(insurancePolicys.idInsurancePolicy)}>Delete</button></td>
                                         </tr>
                                 )
                             }
                         </tbody>
                     </table>
                     <div className="row">
-                        <button className="btn outline-success" onClick={this.addTodoClicked}>Add</button>
+                        <button className="btn btn-outline-success" onClick={this.addTodoClicked}>Add</button>
                     </div>
                 </div>
             </div>
