@@ -33,7 +33,7 @@ class InsurancePolicyComponent extends Component {
     }
 
     validate(values) {
-        let errors = {}
+        /*let errors = {}
         if (!values.description) {
             errors.description = 'Enter a Description'
         } else if (values.description.length < 5) {
@@ -44,7 +44,7 @@ class InsurancePolicyComponent extends Component {
             errors.targetDate = 'Enter a valid Target Date'
         }
 
-        return errors
+        return errors*/
 
     }
 
@@ -53,15 +53,29 @@ class InsurancePolicyComponent extends Component {
 
         let todo = {
             id: this.state.id,
-            description: values.description,
-            targetDate: values.targetDate
+            idClient: values.idCliente,
+            idSellAgent: values.idSellAgent,
+            idType: values.idType,
+            idStatus: values.idStatus,
+            period: values.period,
+            value: values.Value,
+            deductible: values.Deductible,
+            coverageAmount: values.CoverageAmount,
+            coverageStart: values.CoverageStartDate,
+            coveragePeriod: values.CoveragePeriod,
+            monthlyFee: values.MonthlyFee,
+            comission: values.Comission,
+            active: values.Active
+
+            
+            
         }
 
         if (this.state.id === -1) {
-            InsurancePolicyDataService.createinsurancePolicy(username, todo)
-                .then(() => this.props.history.push('/todos'))
+            InsurancePolicyDataService.createinsurancePolicy(todo)
+                .then(() => this.props.history.push('/insurancePolicy'))
         } else {
-            InsurancePolicyDataService.updateTodo(username, this.state.id, todo)
+            InsurancePolicyDataService.updateinsurancePolicy(username, this.state.id, todo)
                 .then(() => this.props.history.push('/todos'))
         }
 
@@ -70,7 +84,7 @@ class InsurancePolicyComponent extends Component {
 
     render() {
 
-        let { description, targetDate } = this.state
+        let {idClient,idSellAgent,idType,period,value,deductible, coverageAmount,coverageStart,coveragePeriod,monthlyFee,comission,active } = this.state
         //let targetDate = this.state.targetDate
 
         return (
@@ -78,7 +92,7 @@ class InsurancePolicyComponent extends Component {
                 <h1>Insurance Policy</h1>
                 <div className="container">
                     <Formik
-                        initialValues={{ description, targetDate }}
+                        initialValues={{ idClient,idSellAgent,idType,period,value,deductible, coverageAmount,coverageStart,coveragePeriod,monthlyFee,comission,active }}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -88,19 +102,72 @@ class InsurancePolicyComponent extends Component {
                         {
                             (props) => (
                                 <Form>
-                                    <ErrorMessage name="description" component="div"
-                                        className="alert alert-warning" />
-                                    <ErrorMessage name="targetDate" component="div"
-                                        className="alert alert-warning" />
+                                    
                                     <fieldset className="form-group">
-                                        <label>Description</label>
-                                        <Field className="form-control" type="text" name="description" />
+                                        <label>Id Insurance Policy</label>
+                                        <Field className="form-control" type="number" name="idInsurancePolicy" />
                                     </fieldset>
                                     <fieldset className="form-group">
-                                        <label>Target Date</label>
-                                        <Field className="form-control" type="date" name="targetDate" />
+                                        <label>Id Client</label>
+                                        <Field className="form-control" type="number" name="idClient" />
                                     </fieldset>
-                                    <button className="btn btn-success" type="submit">Save</button>
+                                    <fieldset className="form-group">
+                                        <label>Id Sell agent</label>
+                                        <Field className="form-control" type="number" name="idSellAgent" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Id Type</label>
+                                        <Field className="form-control" type="number" name="idType" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Id Status</label>
+                                        <Field className="form-control" type="number" name="idStatus" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Period</label>
+                                        <Field className="form-control" type="text" name="Period" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Value</label>
+                                        <Field className="form-control" type="number" name="Value" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Deductible</label>
+                                        <Field className="form-control" type="number" name="Deductible" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Coverage Amount</label>
+                                        <Field className="form-control" type="number" name="CoverageAmount" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Coverage Amount Date</label>
+                                        <Field className="form-control" type="date" name="CoverageStartDate" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Coverage Period</label>
+                                        <Field className="form-control" type="number" name="CoveragePeriod" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Monthly fee</label>
+                                        <Field className="form-control" type="number" name="MonthlyFee" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Comission</label>
+                                        <Field className="form-control" type="number" name="Comission" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Active</label>
+                                        <div className="bg-light">
+                                            
+                                            <Field  type="radio" name="txtActive" value="true"/>
+                                            <label>Active</label>
+                                            <br/>
+                                            <Field  type="radio" name="txtActive" value="false"/>
+                                            <label>Inactive</label>
+                                        </div>
+                                    </fieldset>
+                                    
+                                    <button className="btn btn-outline-success" type="submit">Save</button>
                                 </Form>
                             )
                         }

@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import PolicyStatusDataService from '../../../api/insurance/InsurancePolicyDataService'
+import ClientAssignmentDataService from '../../../api/insurance/ClientAssignmentDataService'
 import AuthenticationService from '../AuthenticationService'
 
-class PolicyStatusComponent extends Component {
+class ClientAssignmentComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             id: this.props.match.params.id,
-            description: '',
-            targetDate: moment(new Date()).format('YYYY-MM-DD')
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -25,12 +23,11 @@ class PolicyStatusComponent extends Component {
             return
         }
 
-        let username = AuthenticationService.getLoggedInUsernameName()
+        let username = AuthenticationService.getLoggedInUserName()
 
-        PolicyStatusDataService.retrieveTodo(username, this.state.id)
+        ClientAssignmentDataService.retrieveClientAssignment(username, this.state.id)
             .then(response => this.setState({
-                description: response.data.description,
-                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+                //
             }))
     }
 
@@ -51,7 +48,7 @@ class PolicyStatusComponent extends Component {
     }
 
     onSubmit(values) {
-        let username = AuthenticationService.getLoggedInPolicyStatusName()
+        let username = AuthenticationService.getLoggedInUserName()
 
         let todo = {
             id: this.state.id,
@@ -60,10 +57,10 @@ class PolicyStatusComponent extends Component {
         }
 
         if (this.state.id === -1) {
-            PolicyStatusDataService.createTodo(username, todo)
+            ClientAssignmentDataService.createTodo(username, todo)
                 .then(() => this.props.history.push('/todos'))
         } else {
-            PolicyStatusDataService.updateTodo(username, this.state.id, todo)
+            ClientAssignmentDataService.updateTodo(username, this.state.id, todo)
                 .then(() => this.props.history.push('/todos'))
         }
 
@@ -72,15 +69,15 @@ class PolicyStatusComponent extends Component {
 
     render() {
 
-        let { description} = this.state
+        let { description, targetDate } = this.state
         //let targetDate = this.state.targetDate
 
         return (
             <div>
-                <h1>Todo</h1>
+                <h1>Client Assignment</h1>
                 <div className="container">
                     <Formik
-                        initialValues={{ description }}
+                        initialValues={{ description, targetDate }}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -92,9 +89,15 @@ class PolicyStatusComponent extends Component {
                                 <Form>
                                     <ErrorMessage name="description" component="div"
                                         className="alert alert-warning" />
+                                    <ErrorMessage name="targetDate" component="div"
+                                        className="alert alert-warning" />
                                     <fieldset className="form-group">
                                         <label>Description</label>
                                         <Field className="form-control" type="text" name="description" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Target Date</label>
+                                        <Field className="form-control" type="date" name="targetDate" />
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>
@@ -108,4 +111,4 @@ class PolicyStatusComponent extends Component {
     }
 }
 
-export default PolicyStatusComponent
+export default ClientAssignmentComponent

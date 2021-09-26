@@ -20,22 +20,22 @@ class InsurancePolicyDataService{
 
     retrieveInsurancePolicy(name, id) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/users/${name}/todos/${id}`);
+        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/insurancePolicy/${name}/todos/${id}`);
     }
 
     deleteinsurancePolicy(name, id) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/users/${name}/todos/${id}`);
+        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/insurancePolicy/${name}/todos/${id}`);
     }
 
     updateinsurancePolicy(name, id, todo) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/users/${name}/todos/${id}`, todo);
+        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/insurancePolicy/${name}/todos/${id}`, todo);
     }
 
-    createinsurancePolicy(name, todo) {
+    createinsurancePolicy(todo) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/users/${name}/todos/`, todo);
+        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/insurancePolicy/todos/`, todo);
     }
 
 }

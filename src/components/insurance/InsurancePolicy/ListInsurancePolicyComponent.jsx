@@ -121,11 +121,12 @@ class ListInsurancePolicyComponent extends Component {
                                             <td>{insurancePolicys.value}</td>
                                             <td>{insurancePolicys.deductible}</td>
                                             <td>{insurancePolicys.coverageAmount}</td>
+                                            <td>{insurancePolicys.coverageStartDay}</td>
                                             <td>{insurancePolicys.monthlyFee}</td>
                                             <td>{insurancePolicys.comission}</td>
                                             <td>{insurancePolicys.active}</td>
-                                            <td><button className="btn outline-success" onClick={() => this.updateTodoClicked(insurancePolicys.idInsurancePolicy)}>Update</button></td>
-                                            <td><button className="btn outline-warning" onClick={() => this.deleteTodoClicked(insurancePolicys.idInsurancePolicy)}>Delete</button></td>
+                                            <td><button className="btn btn-outline-success" onClick={() => this.updateTodoClicked(insurancePolicys.idInsurancePolicy)}>Update</button></td>
+                                            <td><button className="btn btn-outline-warning" onClick={() => this.deleteTodoClicked(insurancePolicys.idInsurancePolicy)}>Delete</button></td>
                                         </tr>
                                 )
                             }
