@@ -22,7 +22,7 @@ class HeaderComponent extends Component {
                         {isUserLoggedIn && <li><Link className="nav-link" to="/InsurancePolicy">Insurance Policy</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/Employee">Employee</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/Customer">Customer</Link></li>}
-                        {isUserLoggedIn && <li><Link className="nav-link" to="/Policy">Policy</Link></li>}
+                        {isUserLoggedIn && <li><Link className="nav-link" to="/PolicyStatus">Policy Status</Link></li>}
                     </ul>
                     <ul className="navbar-nav navbar-collapse justify-content-end">
                         {!isUserLoggedIn && <li><Link className="nav-link" to="/login">Login</Link></li>}

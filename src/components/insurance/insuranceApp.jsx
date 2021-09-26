@@ -22,6 +22,9 @@ import ListClientAssignmentComponent from './ClientAssignment/ListClientAssignme
 import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
 import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
 
+import PolicyStatusComponent from './PolicyStatus/PolicyStatusComponent'
+import ListPolicyStatusComponent from './PolicyStatus/ListPolicyStatusComponent'
+
 
 
 class TodoApp extends Component {
@@ -52,6 +55,10 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
                             <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
                             <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
+
+                            <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent}/>
+                            <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent}/>
+                            <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent}/>
 {/*
                             <AuthenticatedRoute path="/profile/add" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile/:id" component={TodoComponent}/>
