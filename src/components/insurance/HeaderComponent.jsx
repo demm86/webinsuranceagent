@@ -24,6 +24,8 @@ class HeaderComponent extends Component {
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Employee">Employee</Nav.Link></li>}
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Customer">Customer</Nav.Link></li>}
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Policy">Policy</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/PolicyStatus">Policy Status</Nav.Link></li>}
+                            
 
                             {!isUserLoggedIn && <li className="pull-right float-end"><Nav.Link  className="nav-link" href="/login">Login</Nav.Link ></li>}
                             {isUserLoggedIn && <li className="pull-right float-end"><Nav.Link  className="nav-link" href="/logout" onClick={AuthenticationService.logout}>Logout</Nav.Link ></li>}   

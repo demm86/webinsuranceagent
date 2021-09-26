@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import PolicyStatusDataService from '../../../api/insurance/PolicyStatusDataService'
+import PolicyStatusDataService from '../../../api/insurance/InsurancePolicyDataService'
 import AuthenticationService from '../AuthenticationService'
 
 class PolicyStatusComponent extends Component {

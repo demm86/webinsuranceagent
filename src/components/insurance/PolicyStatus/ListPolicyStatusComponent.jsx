@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PolicyStatusDataService from '../../../api/insurance/PolicyStatusDataService'
+import PolicyStatusDataService from '../../../api/insurance/PolicyStatusServices'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
 

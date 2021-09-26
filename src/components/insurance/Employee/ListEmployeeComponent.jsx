@@ -38,7 +38,6 @@ class ListEmployeeComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
-
         EmployeeDataService.retrieveAllEmployees()
             .then(
                 response => {
