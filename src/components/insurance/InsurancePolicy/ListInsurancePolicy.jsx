@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
-import ClientDataService from '../../../api/insurance/ClientDataService'
+import InsurancePolicyDataService from '../../../api/insurance/InsurancePolicyDataService'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
 
-class ListClientComponent extends Component {
-    constructor(props) {
+class ListInsurancePolicyComponent extends Component {
+
+    constructor(props){
         console.log('constructor')
         super(props)
         this.state = {
-            clients: [],
+            insurancePolicy: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
         this.updateTodoClicked = this.updateTodoClicked.bind(this)
         this.addTodoClicked = this.addTodoClicked.bind(this)
         this.refreshTodos = this.refreshTodos.bind(this)
+
     }
 
     componentWillUnmount() {
@@ -36,7 +38,7 @@ class ListClientComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
-        ClientDataService.retrieveAllClients()
+        InsurancePolicyDataService.retrieveAllInsurancePolicy()
             .then(
                 response => {
                     console.log(response);
@@ -48,7 +50,7 @@ class ListClientComponent extends Component {
     deleteTodoClicked(id) {
         let clientname = AuthenticationService.getLoggedInClientName()
         //console.log(id + " " + username);
-        ClientDataService.deleteTodo(clientname, id)
+        InsurancePolicyDataService.deleteTodo(clientname, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -59,12 +61,12 @@ class ListClientComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/client/add`)
+        this.props.history.push(`/InsurnacePolicy/Add`)
     }
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/Clients/${id}`)
+        this.props.history.push(`/InsurnacePolicy/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -78,9 +80,10 @@ class ListClientComponent extends Component {
 
     }
 
-    render() {
+    render(){
         console.log('render')
-        return (
+        
+        return(
             <div>
                 <h1 className="left">List Todos</h1>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
@@ -88,44 +91,53 @@ class ListClientComponent extends Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                
-                                <th>ID Employee</th>
-                                <th> LastName</th>
-                                <th> FirstName</th>
-                                <th> Address</th>
-                                <th> Email</th>
-                                <th> Phone Number </th>
-                                <th> Birthday</th>
+                                <th>idInsurancePolicy</th>
+                                <th>idClient</th>
+                                <th>sellIDAgent</th>
+                                <th>idType</th>
+                                <th>idStatus</th>
+                                <th>period</th>
+                                <th>value</th>
+                                <th>coverage Amount</th>
+                                <th>coverage Start Date</th>
+                                <th>coverage Period</th>
+                                <th>monthly Fee</th>
+                                <th>comission</th>
+                                <th>active</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.clients.map(
-                                    clients =>
-                                        <tr key={clients.idClient}>
-                                            <td>{clients.idEmployee}</td>
-                                            <td>{clients.firstName}</td>
-                                            <td>{clients.lastName}</td>
-                                            <td>{clients.address}</td>
-                                            <td>{clients.email}</td>
-                                            <td>{clients.phone}</td>
-                                            <td>{clients.birthday}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(clients.idClient)}>Update</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(clients.idClient)}>Delete</button></td>
+                                this.state.insurancePolicy.map(
+                                    insurancePolicy =>
+                                        <tr key={insurancePolicy.idInsurancePolicy}>
+                                            <td>{insurancePolicy.idClient}</td>
+                                            <td>{insurancePolicy.selliDAgent}</td>
+                                            <td>{insurancePolicy.idType}</td>
+                                            <td>{insurancePolicy.idStatus}</td>
+                                            <td>{insurancePolicy.period}</td>
+                                            <td>{insurancePolicy.value}</td>
+                                            <td>{insurancePolicy.deductible}</td>
+                                            <td>{insurancePolicy.coverageAmount}</td>
+                                            <td>{insurancePolicy.monthlyFee}</td>
+                                            <td>{insurancePolicy.comission}</td>
+                                            <td>{insurancePolicy.active}</td>
+                                            <td><button className="btn outline-success" onClick={() => this.updateTodoClicked(insurancePolicy.idInsurancePolicy)}>Update</button></td>
+                                            <td><button className="btn outline-warning" onClick={() => this.deleteTodoClicked(insurancePolicy.idInsurancePolicy)}>Delete</button></td>
                                         </tr>
                                 )
                             }
                         </tbody>
                     </table>
                     <div className="row">
-                        <button className="btn btn-success" onClick={this.addTodoClicked}>Add</button>
+                        <button className="btn outline-success" onClick={this.addTodoClicked}>Add</button>
                     </div>
                 </div>
             </div>
         )
+
     }
 }
-
-export default ListClientComponent
+export default ListInsurancePolicyComponent

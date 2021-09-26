@@ -25,9 +25,9 @@ class ClientComponent extends Component {
             return
         }
 
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let username = AuthenticationService.getLoggedInUserName()
 
-        ClientDataService.retrieveTodo(clientname, this.state.id)
+        ClientDataService.retrieveClient(username, this.state.id)
             .then(response => this.setState({
                 description: response.data.description,
                 targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
@@ -72,7 +72,7 @@ class ClientComponent extends Component {
 
     render() {
 
-        let { description, targetDate } = this.state
+        let { idEmployee, firstName, lastName, address, email, phoneNumber, birthday} = this.state
         //let targetDate = this.state.targetDate
 
         return (
@@ -80,7 +80,7 @@ class ClientComponent extends Component {
                 <h1>Todo</h1>
                 <div className="container">
                     <Formik
-                        initialValues={{ description, targetDate }}
+                        initialValues={{ idEmployee, firstName, lastName, address, email, phoneNumber, birthday}}
                         onSubmit={this.onSubmit}
                         validateOnChange={false}
                         validateOnBlur={false}
@@ -90,17 +90,50 @@ class ClientComponent extends Component {
                         {
                             (props) => (
                                 <Form>
-                                    <ErrorMessage name="description" component="div"
+                                    <ErrorMessage name="idClient" component="div"
                                         className="alert alert-warning" />
-                                    <ErrorMessage name="targetDate" component="div"
+                                    <ErrorMessage name="idEmployee" component="div"
                                         className="alert alert-warning" />
+                                    <ErrorMessage name="firstName" component="div"
+                                        className="alert alert-warning" />
+                                    <ErrorMessage name="lastName" component="div"
+                                        className="alert alert-warning" />
+                                    <ErrorMessage name="address" component="div"
+                                        className="alert alert-warning" />
+                                        <ErrorMessage name="email" component="div"
+                                        className="alert alert-warning" />
+                                        <ErrorMessage name="phoneNumber" component="div"
+                                        className="alert alert-warning" />
+                                        <ErrorMessage name="birthday" component="div"
+                                        className="alert alert-warning" />
+                                
                                     <fieldset className="form-group">
-                                        <label>Description</label>
-                                        <Field className="form-control" type="text" name="description" />
+                                        <label>IdEmployee</label>
+                                        <Field className="form-control" type="text" name="idEmployee" />
                                     </fieldset>
                                     <fieldset className="form-group">
-                                        <label>Target Date</label>
-                                        <Field className="form-control" type="date" name="targetDate" />
+                                        <label>firstName</label>
+                                        <Field className="form-control" type="text" name="firstName" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>lastName</label>
+                                        <Field className="form-control" type="text" name="lastName" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>address</label>
+                                        <Field className="form-control" type="text" name="address" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>email</label>
+                                        <Field className="form-control" type="text" name="email" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>phoneNumber</label>
+                                        <Field className="form-control" type="text" name="phoneNumber" />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>birthDay</label>
+                                        <Field className="form-control" type="date" name="birthday" />
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>

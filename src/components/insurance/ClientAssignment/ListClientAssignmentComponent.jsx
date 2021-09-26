@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import ClientDataService from '../../../api/insurance/ClientDataService'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
+import ClientAssignmentDataService from '../../../api/insurance/ClientAssignmentDataService'
 
-class ListClientComponent extends Component {
+class ListClientAssignmentComponent extends Component {
     constructor(props) {
         console.log('constructor')
         super(props)
         this.state = {
-            clients: [],
+            clientAssignments: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -36,19 +36,19 @@ class ListClientComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
-        ClientDataService.retrieveAllClients()
+        ClientAssignmentDataService.retrieveAllClientAssignment()
             .then(
                 response => {
                     console.log(response);
-                    this.setState({ clients: response.data })
+                    this.setState({ clientAssignments: response.data })
                 }
             )
     }
 
     deleteTodoClicked(id) {
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let username = AuthenticationService.getLoggedInUserName()
         //console.log(id + " " + username);
-        ClientDataService.deleteTodo(clientname, id)
+        ClientAssignmentDataService.deleteTodo(username, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -59,12 +59,12 @@ class ListClientComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/client/add`)
+        this.props.history.push(`/clientAssignment/add`)
     }
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/Clients/${id}`)
+        this.props.history.push(`/Users/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -82,38 +82,29 @@ class ListClientComponent extends Component {
         console.log('render')
         return (
             <div>
-                <h1 className="left">List Todos</h1>
+                <h1 className="left">List Client Assignment</h1>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
                             <tr>
-                                
-                                <th>ID Employee</th>
-                                <th> LastName</th>
-                                <th> FirstName</th>
-                                <th> Address</th>
-                                <th> Email</th>
-                                <th> Phone Number </th>
-                                <th> Birthday</th>
+                                <th>Client</th>
+                                <th>Employee</th>
+                                <th>Active</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.clients.map(
-                                    clients =>
-                                        <tr key={clients.idClient}>
-                                            <td>{clients.idEmployee}</td>
-                                            <td>{clients.firstName}</td>
-                                            <td>{clients.lastName}</td>
-                                            <td>{clients.address}</td>
-                                            <td>{clients.email}</td>
-                                            <td>{clients.phone}</td>
-                                            <td>{clients.birthday}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(clients.idClient)}>Update</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(clients.idClient)}>Delete</button></td>
+                                this.state.clientAssignments.map(
+                                    clientAssignment =>
+                                        <tr key={clientAssignment.idClientAssignments}>
+                                            <td>{clientAssignment.idClient}</td>
+                                            <td>{clientAssignment.idAgentEmployee}</td>
+                                            <td>{clientAssignment.active}</td>
+                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(clientAssignment.idClientAssignments)}>Update</button></td>
+                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(clientAssignment.idClientAssignments)}>Delete</button></td>
                                         </tr>
                                 )
                             }
@@ -128,4 +119,4 @@ class ListClientComponent extends Component {
     }
 }
 
-export default ListClientComponent
+export default ListClientAssignmentComponent

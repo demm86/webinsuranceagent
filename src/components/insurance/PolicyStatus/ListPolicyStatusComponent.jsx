@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import ClientDataService from '../../../api/insurance/ClientDataService'
+import PolicyStatusDataService from '../../../api/insurance/PolicyStatusDataService'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
 
-class ListClientComponent extends Component {
+class ListPolicyStatusComponent extends Component {
     constructor(props) {
         console.log('constructor')
         super(props)
         this.state = {
-            clients: [],
+            policyStatus: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -36,19 +36,19 @@ class ListClientComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
-        ClientDataService.retrieveAllClients()
+        PolicyStatusDataService.retrieveAllPolicyStatus()
             .then(
                 response => {
                     console.log(response);
-                    this.setState({ clients: response.data })
+                    this.setState({ policyStatus: response.data })
                 }
             )
     }
 
     deleteTodoClicked(id) {
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let policyStatus = AuthenticationService.getLoggedInPolicyStatusName()
         //console.log(id + " " + username);
-        ClientDataService.deleteTodo(clientname, id)
+        PolicyStatusDataService.deleteTodo(policyStatus, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -59,12 +59,12 @@ class ListClientComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/client/add`)
+        this.props.history.push(`/policyStatus/add`)
     }
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/Clients/${id}`)
+        this.props.history.push(`/PolicyStatus/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -88,32 +88,20 @@ class ListClientComponent extends Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                
-                                <th>ID Employee</th>
-                                <th> LastName</th>
-                                <th> FirstName</th>
-                                <th> Address</th>
-                                <th> Email</th>
-                                <th> Phone Number </th>
-                                <th> Birthday</th>
+                                <th>ID Status</th>
+                                <th>Description</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.clients.map(
-                                    clients =>
-                                        <tr key={clients.idClient}>
-                                            <td>{clients.idEmployee}</td>
-                                            <td>{clients.firstName}</td>
-                                            <td>{clients.lastName}</td>
-                                            <td>{clients.address}</td>
-                                            <td>{clients.email}</td>
-                                            <td>{clients.phone}</td>
-                                            <td>{clients.birthday}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(clients.idClient)}>Update</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(clients.idClient)}>Delete</button></td>
+                                this.state.policyStatus.map(
+                                    policyStatus =>
+                                        <tr key={policyStatus.idStatus}>
+                                            <td>{policyStatus.description}</td>
+                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(policyStatus.idStatus)}>Update</button></td>
+                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(policyStatus.idStatus)}>Delete</button></td>
                                         </tr>
                                 )
                             }
@@ -128,4 +116,4 @@ class ListClientComponent extends Component {
     }
 }
 
-export default ListClientComponent
+export default ListPolicyStatusComponent
