@@ -19,6 +19,9 @@ import ListClientComponent from './Client/ListClientComponent'
 import ClientAssignmentComponent from './ClientAssignment/ClientAssignmentComponent'
 import ListClientAssignmentComponent from './ClientAssignment/ListClientAssignmentComponent'
 
+import AgentAssignmentComponent from './AgentAssignment/AgentAssignmentComponent'
+import ListAgentAssignmentComponent from './AgentAssignment/ListAgentAssignmentComponent'
+
 import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
 import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
 
@@ -51,6 +54,10 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/clientAssignment/add" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment/:id" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment" component={ListClientAssignmentComponent}/>
+
+                            <AuthenticatedRoute path="/AgentAssignment/add" component={AgentAssignmentComponent}/>
+                            <AuthenticatedRoute path="/AgentAssignment/:id" component={AgentAssignmentComponent}/>
+                            <AuthenticatedRoute path="/AgentAssignment" component={ListAgentAssignmentComponent}/>
 
                             <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
                             <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
