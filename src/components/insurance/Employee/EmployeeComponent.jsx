@@ -70,9 +70,7 @@ class EmployeeComponent extends Component {
         let errors = {}
         if (!values.firstName) {
             errors.firstName = 'Enter a First Name'
-        } /*else if (values.firstName.length < 5) {
-            errors.firstName = 'Enter atleast 5 Characters in user name'
-        }*/
+        }
 
         if (!values.lastName) {
             errors.lastName = 'Enter a Last Name'
