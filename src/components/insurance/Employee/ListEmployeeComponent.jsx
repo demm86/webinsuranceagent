@@ -50,10 +50,10 @@ class ListEmployeeComponent extends Component {
     deleteTodoClicked(id) {
         let username = AuthenticationService.getLoggedInUserName()
         //console.log(id + " " + username);
-        EmployeeDataService.deleteEmployee(username, id)
+        EmployeeDataService.deleteEmployee(id)
             .then(
                 response => {
-                    this.setState({ message: `Delete of todo ${id} Successful` })
+                    this.setState({ message: `Delete of employee ${id} Successful` })
                     this.refreshTodos()
                 }
             )
@@ -119,7 +119,7 @@ class ListEmployeeComponent extends Component {
                                                     <td>
                                                         <ButtonGroup className="float-end" aria-label="Basic example">
                                                             <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(employee.idEmployee)}><Icon.Trash></Icon.Trash></Button>
-                                                            <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(employee.idEmployee)}><Icon.Save></Icon.Save></Button>
+                                                            <Button className="btn" variant="primary" onClick={() => this.updateTodoClicked(employee.idEmployee)}><Icon.Save></Icon.Save></Button>
                                                         </ButtonGroup>
 
 

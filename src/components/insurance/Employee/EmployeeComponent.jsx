@@ -30,9 +30,17 @@ class EmployeeComponent extends Component {
     }
 
     componentDidMount() {
+        if (this.state.id === 'add') {
+            UserDataService.retrieveAllUsers()
+            .then(response => this.setState({
+                users : response.data
+            }))
 
-        if (this.state.id === 'Add') {
-            return
+        RolDataService.retrieveAllRoles()
+            .then(response => this.setState({
+                roles : response.data
+            }))
+        return
         }
 
         let userAlias = AuthenticationService.getLoggedInUserName()
@@ -60,16 +68,22 @@ class EmployeeComponent extends Component {
 
     validate(values) {
         let errors = {}
-        if (!values.userAlias) {
-            errors.userAlias = 'Enter a User Name'
-        } else if (values.userAlias.length < 5) {
-            errors.userAlias = 'Enter atleast 5 Characters in user name'
+        if (!values.firstName) {
+            errors.firstName = 'Enter a First Name'
+        } /*else if (values.firstName.length < 5) {
+            errors.firstName = 'Enter atleast 5 Characters in user name'
+        }*/
+
+        if (!values.lastName) {
+            errors.lastName = 'Enter a Last Name'
         }
 
-        if (!values.password) {
-            errors.password = 'Enter a profile'
-        } else if (values.password.length < 5) {
-            errors.password = 'Enter atleast 5 Characters in profile'
+        if(!values.email){
+            errors.email = 'Enter a email'
+        }
+
+        if(!values.phone){
+            errors.phone = 'Enter a number phone'
         }
 
         return errors
@@ -79,36 +93,39 @@ class EmployeeComponent extends Component {
     onSubmit(values) {
         let userAlias = AuthenticationService.getLoggedInUserName()
 
-        let employee = {
-            id: this.state.id,
-            idRol: values.idRol,
-            idUser: values.idUser,
-            firstName: values.irstName,
-            lastName: values.lastName,
-            email: values.email,
-            phone: values.phone
-        }
-
         if (this.state.id === "add") {
-            EmployeeDataService.createUser(userAlias, employee)
+            let employee = {
+                idRol: values.idRol,
+                idUser: values.idUser,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                phone: values.phone
+            }
+            EmployeeDataService.createEmployee(employee)
                 .then(() => this.props.history.push('/employee'))
         } else {
-            EmployeeDataService.updateUser(userAlias, this.state.id, employee)
+            let employee = {
+                idEmployee: this.state.id,
+                idRol: values.idRol,
+                idUser: values.idUser,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                phone: values.phone
+            }
+            EmployeeDataService.updateEmployee(employee)
                 .then(() => this.props.history.push('/employee'))
         }
-
-        console.log(values);
     }
 
     cancelUserClicked() {
         this.props.history.push(`/employee`)
     }
 
-
-
     render() {
 
-        let { id, idRol, idUser, firstName, lastName, email, phone } = this.state
+        let { idEmployee, idRol, idUser, firstName, lastName, email, phone } = this.state
         //let targetDate = this.state.targetDate
 
         return (
@@ -116,9 +133,9 @@ class EmployeeComponent extends Component {
                 <Row>
                     <Col md={{ span: 6, offset: 3 }}>
                         <h1>Employee</h1>
-                        <div className="">
+                        <div className="container">
                             <Formik
-                                initialValues={{ id, idRol, idUser, firstName, lastName, email, phone }}
+                                initialValues={{ idEmployee, firstName, lastName, email, phone, idRol, idUser }}
                                 onSubmit={this.onSubmit}
                                 validateOnChange={false}
                                 validateOnBlur={false}
@@ -136,6 +153,10 @@ class EmployeeComponent extends Component {
                                             <ErrorMessage name="email" component="div"
                                                 className="alert alert-warning" />
                                             <ErrorMessage name="phone" component="div"
+                                                className="alert alert-warning" />
+                                            <ErrorMessage name="idRol" component="div"
+                                                className="alert alert-warning" />
+                                            <ErrorMessage name="idUser" component="div"
                                                 className="alert alert-warning" />
 
                                             <fieldset className="form-group">
@@ -156,19 +177,19 @@ class EmployeeComponent extends Component {
                                             </fieldset>
                                             <fieldset className="form-group">
                                                 <label>User</label>
-                                                <select className="form-control" name="idUser">
-                                                    { this.state.users.map(user =>
+                                                <Field className="form-control" component="select" name="idUser">
+                                                { this.state.users.map(user =>
                                                         <option key={user.idUser} value={user.idUser}>{user.userAlias}</option>
                                                     )}
-                                                </select>
+                                                </Field>
                                             </fieldset>
                                             <fieldset className="form-group">
                                                 <label>Rol</label>
-                                                <select className="form-control" name="idRol">
+                                                <Field className="form-control" component="select" name="idRol">
                                                     { this.state.roles.map(rol =>
                                                         <option key={rol.idRol} value={rol.idRol}>{rol.description}</option>
                                                     )}
-                                                </select>
+                                                </Field>
                                             </fieldset>
                                             <br />
                                             
@@ -179,12 +200,9 @@ class EmployeeComponent extends Component {
 
 
                                         </Form>
-
                                     )
                                 }
                             </Formik>
-
-
                         </div>
                     </Col>
                 </Row>

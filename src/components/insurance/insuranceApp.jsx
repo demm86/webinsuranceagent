@@ -39,7 +39,7 @@ class TodoApp extends Component {
                                         <Route path="/login" component={LoginComponent} />
                                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
 
-                                        <AuthenticatedRoute path="/users/Add" component={UsersComponent} />
+                                        <AuthenticatedRoute path="/users/add" component={UsersComponent} />
                                         <AuthenticatedRoute path="/users/:id" component={UsersComponent} />
                                         <AuthenticatedRoute path="/users" component={ListUsersComponent} />
 
@@ -48,7 +48,6 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
 
-                                        <AuthenticatedRoute path="/employee/add" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee/:id" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee" component={ListEmployeeComponent}/>
 
