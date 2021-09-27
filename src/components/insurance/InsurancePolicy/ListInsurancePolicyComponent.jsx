@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import InsurancePolicyDataService from '../../../api/insurance/InsurancePolicyDataService'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
-
+import * as Icon from 'react-bootstrap-icons';
+import { Form, Col, Row, Button, ButtonGroup } from "react-bootstrap";
 class ListInsurancePolicyComponent extends Component {
 
-    constructor(props){
+    constructor(props) {
         console.log('constructor')
         super(props)
         this.state = {
@@ -50,7 +51,7 @@ class ListInsurancePolicyComponent extends Component {
     deleteTodoClicked(id) {
         let username = AuthenticationService.getLoggedInClientName()
         //console.log(id + " " + username);
-        InsurancePolicyDataService.deleteTodo(username, id)
+        InsurancePolicyDataService.deleteTodo(id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -66,7 +67,7 @@ class ListInsurancePolicyComponent extends Component {
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/Users/${id}`)
+        this.props.history.push(`/InsurancePolicy/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -80,63 +81,77 @@ class ListInsurancePolicyComponent extends Component {
 
     }
 
-    render(){
+    render() {
         console.log('render')
-        
-        return(
+
+        return (
             <div>
-                <h1 className="left">List Insurance Policy</h1>
-                {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
-                <div className="container">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th>idInsurancePolicy</th>
-                                <th>idClient</th>
-                                <th>sellIDAgent</th>
-                                <th>idType</th>
-                                <th>idStatus</th>
-                                <th>period</th>
-                                <th>value</th>
-                                <th>coverage Amount</th>
-                                <th>coverage Start Date</th>
-                                <th>coverage Period</th>
-                                <th>monthly Fee</th>
-                                <th>comission</th>
-                                <th>active</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.insurancePolicy.map(
-                                    insurancePolicys =>
-                                        <tr key={insurancePolicys.idInsurancePolicy}>
-                                            <td>{insurancePolicys.idClient}</td>
-                                            <td>{insurancePolicys.selliDAgent}</td>
-                                            <td>{insurancePolicys.idType}</td>
-                                            <td>{insurancePolicys.idStatus}</td>
-                                            <td>{insurancePolicys.period}</td>
-                                            <td>{insurancePolicys.value}</td>
-                                            <td>{insurancePolicys.deductible}</td>
-                                            <td>{insurancePolicys.coverageAmount}</td>
-                                            <td>{insurancePolicys.coverageStartDay}</td>
-                                            <td>{insurancePolicys.monthlyFee}</td>
-                                            <td>{insurancePolicys.comission}</td>
-                                            <td>{insurancePolicys.active}</td>
-                                            <td><button className="btn btn-outline-success" onClick={() => this.updateTodoClicked(insurancePolicys.idInsurancePolicy)}>Update</button></td>
-                                            <td><button className="btn btn-outline-warning" onClick={() => this.deleteTodoClicked(insurancePolicys.idInsurancePolicy)}>Delete</button></td>
-                                        </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-                    <div className="row">
-                        <button className="btn btn-outline-success" onClick={this.addTodoClicked}>Add</button>
-                    </div>
-                </div>
+                
+                        <h1 className="left">List Insurance Policy</h1>
+                        {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
+                        <div className="container">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>idInsurancePolicy</th>
+                                        <th>idClient</th>
+                                        <th>sellIDAgent</th>
+                                        <th>idType</th>
+                                        <th>idStatus</th>
+                                        <th>period</th>
+                                        <th>value</th>
+                                        <th>Deductible</th>
+                                        <th>coverage Amount</th>
+                                        <th>coverage Start Date</th>
+                                        <th>coverage Period</th>
+                                        <th>monthly Fee</th>
+                                        <th>comission</th>
+                                        <th>active</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.insurancePolicy.map(
+                                            insurancePolicys =>
+                                                <tr key={insurancePolicys.idInsurancePolicy}>
+                                                    <td>{insurancePolicys.idInsurancePolicy}</td>
+                                                    <td>{insurancePolicys.idClient}</td>
+                                                    <td>{insurancePolicys.selliDAgent}</td>
+                                                    <td>{insurancePolicys.idType}</td>
+                                                    <td>{insurancePolicys.idStatus}</td>
+                                                    <td>{insurancePolicys.period}</td>
+                                                    <td>{insurancePolicys.value}</td>
+                                                    <td>{insurancePolicys.deductible}</td>
+                                                    <td>{insurancePolicys.coverageAmount}</td>
+                                                    <td>{insurancePolicys.coverageStartDay}</td>
+                                                    <td>{insurancePolicys.coveragePeriod}</td>
+                                                    <td>{insurancePolicys.monthlyFee}</td>
+                                                    <td>{insurancePolicys.comission}</td>
+                                                    <td>{insurancePolicys.active}</td>
+                                                    <td>
+                                                        <ButtonGroup className="float-end" aria-label="Basic example">
+                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(insurancePolicys.idInsurancePolicy)}><Icon.Trash></Icon.Trash></Button>
+                                                            <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(insurancePolicys.idInsurancePolicy)}><Icon.Save></Icon.Save></Button>
+                                                        </ButtonGroup>
+                                                    </td>
+                                                </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                            <div className="">
+                                <Row>
+                                    <Col>
+                                        <button className="btn btn-success float-end" onClick={this.addTodoClicked}><Icon.PlusCircle></Icon.PlusCircle></button>
+                                    </Col>
+
+                                </Row>
+                            </div>
+                        </div>
+                    
             </div>
+
         )
 
     }

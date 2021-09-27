@@ -79,7 +79,7 @@ class EmployeeComponent extends Component {
     onSubmit(values) {
         let userAlias = AuthenticationService.getLoggedInUserName()
 
-        let users = {
+        let employee = {
             id: this.state.id,
             idRol: values.idRol,
             idUser: values.idUser,
@@ -89,12 +89,12 @@ class EmployeeComponent extends Component {
             phone: values.phone
         }
 
-        if (this.state.id === "Add") {
-            EmployeeDataService.createUser(userAlias, users)
-                .then(() => this.props.history.push('/users'))
+        if (this.state.id === "add") {
+            EmployeeDataService.createUser(userAlias, employee)
+                .then(() => this.props.history.push('/employee'))
         } else {
-            EmployeeDataService.updateUser(userAlias, this.state.id, users)
-                .then(() => this.props.history.push('/users'))
+            EmployeeDataService.updateUser(userAlias, this.state.id, employee)
+                .then(() => this.props.history.push('/employee'))
         }
 
         console.log(values);
