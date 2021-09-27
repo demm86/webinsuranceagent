@@ -26,17 +26,19 @@ class UsersDataService {
 
     deleteUser(id) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/api/user/${id}`);
+        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/api/deleteUser/${id}`);
     }
 
     updateUser(user) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/api/user`, user);
+        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/api/updateUser`, user);
     }
 
+
     createUser(user) {
-        //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/api/user`, user);
+        console.log('executed service')
+        console.log(user)
+        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/api/saveUser`, user);
     }
 
 }

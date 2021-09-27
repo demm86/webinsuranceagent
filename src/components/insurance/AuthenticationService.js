@@ -72,6 +72,7 @@ class AuthenticationService {
 
     setupAxiosInterceptorsConst() {
 
+
         axios.interceptors.request.use(
             (config) => {
                 if (this.isUserLoggedIn()) {
