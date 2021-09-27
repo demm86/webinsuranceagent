@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-import UsersDataService from '../../../api/insurance/UsersDataService'
+import ProfileDataService from '../../../api/insurance/ProfileDataService'
 import AuthenticationService from '../AuthenticationService'
 
 import { Form, Col, Row, Button,ButtonGroup  } from "react-bootstrap";
 
 import * as Icon from 'react-bootstrap-icons';
-class ListUsersComponent extends Component {
+class ListProfilesComponent extends Component {
     constructor(props) {
         console.log('constructor')
         super(props)
         this.state = {
-            users: [],
+            profile: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -39,11 +39,11 @@ class ListUsersComponent extends Component {
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
 
-        UsersDataService.retrieveAllUsers()
+        ProfileDataService.retrieveAllProfiles()
             .then(
                 response => {
                     console.log(response);
-                    this.setState({ users: response.data })
+                    this.setState({ profile: response.data })
                 }
             )
     }
@@ -51,7 +51,7 @@ class ListUsersComponent extends Component {
     deleteTodoClicked(id) {
         let username = AuthenticationService.getLoggedInUserName()
         //console.log(id + " " + username);
-        UsersDataService.deleteUser(id)
+        ProfileDataService.deleteProfile(id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -62,23 +62,12 @@ class ListUsersComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/Users/Add/`)
+        this.props.history.push(`/Profile/Add/`)
     }
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/Users/${id}`)
-        // /todos/${id}
-        // let username = AuthenticationService.getLoggedInUserName()
-        // //console.log(id + " " + username);
-        // TodoDataService.deleteTodo(username, id)
-        //  .then (
-        //      response => {
-        //         this.setState({message : `Delete of todo ${id} Successful`})
-        //         this.refreshTodos()
-        //      }
-        //  )
-
+        this.props.history.push(`/Profile/${id}`)
     }
 
     render() {
@@ -90,29 +79,27 @@ class ListUsersComponent extends Component {
 
                         <div className="container">
 
-                            <h2>List Users</h2>
+                            <h2>List Profiles</h2>
                             {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
 
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th>User ID Profile</th>
-                                        <th>User Alias</th>
+                                        <th>Description</th>
                                         <th>Update</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        this.state.users.map(
-                                            users =>
-                                                <tr key={users.idUser}>
-                                                    <td>{users.idProfile}</td>
-                                                    <td>{users.userAlias}</td>
+                                        this.state.profile.map(
+                                            profile =>
+                                                <tr key={profile.idProfile}>
+                                                    <td>{profile.description}</td>
                                                     <td>
                                                         <ButtonGroup className="float-end" aria-label="Basic example">
-                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(users.idUser)}><Icon.Trash></Icon.Trash></Button>
-                                                            <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(users.idUser)}><Icon.Save></Icon.Save></Button>
+                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(profile.idProfile)}><Icon.Trash></Icon.Trash></Button>
+                                                            <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(profile.idProfile)}><Icon.Save></Icon.Save></Button>
                                                         </ButtonGroup>
 
 
@@ -139,4 +126,4 @@ class ListUsersComponent extends Component {
     }
 }
 
-export default ListUsersComponent
+export default ListProfilesComponent

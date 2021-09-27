@@ -20,8 +20,8 @@ import ListClientComponent from './Client/ListClientComponent'
 import PolicyStatusComponent from './PolicyStatus/PolicyStatusComponent'
 import ListPolicyStatusComponent from './PolicyStatus/ListPolicyStatusComponent'
 
-import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent'
-import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent'
+import ProfileComponent from './Profile/ProfilesComponent'
+import ListProfileComponent from './Profile/ListProfilesComponent'
 
 
 import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
@@ -49,9 +49,13 @@ class TodoApp extends Component {
                                         <Route path="/login" component={LoginComponent} />
                                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
 
-                                        <AuthenticatedRoute path="/users/Add" component={UsersComponent} />
+                                      
                                         <AuthenticatedRoute path="/users/:id" component={UsersComponent} />
                                         <AuthenticatedRoute path="/users" component={ListUsersComponent} />
+
+                                        <AuthenticatedRoute path="/profile/:id" component={ProfileComponent} />
+                                        <AuthenticatedRoute path="/profile" component={ListProfileComponent} />
+
 
 
                                         <AuthenticatedRoute path="/client/add" component={ClientComponent} />
@@ -59,9 +63,6 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
 
 
-                                        <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent} />
-                                        <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent} />
-                                        <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent} />
 
                                         <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent} />
                                         <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent} />

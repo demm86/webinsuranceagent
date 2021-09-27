@@ -11,9 +11,9 @@ class UsersComponent extends Component {
         super(props)
 
         this.state = {
-            id: this.props.match.params.id,
-            userAlias: '',
+            idUser: this.props.match.params.id,
             idProfile: '',
+            userAlias: '',
             password: ''
         }
 
@@ -24,16 +24,18 @@ class UsersComponent extends Component {
 
     componentDidMount() {
 
-        if (this.state.id === 'Add') {
-            return
-        }
 
         let userAlias = AuthenticationService.getLoggedInUserName()
 
-        UsersDataService.retrieveUser(this.state.id)
+        if (this.state.idUser === 'Add') {
+            console.log("Add componentDidMount ")
+            return
+        }
+
+        UsersDataService.retrieveUser(this.state.idUser)
             .then(response => this.setState({
-                userAlias: response.data.userAlias,
                 idProfile: response.data.idProfile,
+                userAlias: response.data.userAlias,
                 password: response.data.password
             }))
     }
@@ -49,7 +51,7 @@ class UsersComponent extends Component {
         if (!values.password) {
             errors.password = 'Enter a profile'
         } else if (values.password.length < 5) {
-            errors.password = 'Enter atleast 5 Characters in profile'
+            errors.password = 'Enter atleast 5 Characters in password'
         }
 
         return errors
@@ -59,18 +61,30 @@ class UsersComponent extends Component {
     onSubmit(values) {
         let userAlias = AuthenticationService.getLoggedInUserName()
 
-        let users = {
-            id: this.state.id,
-            userAlias: values.userAlias,
-            idProfile: values.idProfile,
-            password: values.password
-        }
+        let users = {};
 
-        if (this.state.id === "Add") {
-            UsersDataService.createUser(userAlias, users)
+        if (this.state.idUser === "Add") {
+
+            users = {
+                idProfile: values.idProfile,
+                userAlias: values.userAlias,
+                password: values.password
+            }
+            
+            console.log("Add =>");
+            console.log(users);
+            UsersDataService.createUser(users)
                 .then(() => this.props.history.push('/users'))
         } else {
-            UsersDataService.updateUser(userAlias, this.state.id, users)
+
+            users = {
+                idUser: this.state.idUser,
+                idProfile: values.idProfile,
+                userAlias: values.userAlias,
+                password: values.password
+            }
+
+            UsersDataService.updateUser(users)
                 .then(() => this.props.history.push('/users'))
         }
 
@@ -85,7 +99,7 @@ class UsersComponent extends Component {
 
     render() {
 
-        let { id, userAlias, idProfile, password } = this.state
+        let { idUser, idProfile, userAlias, password } = this.state
         //let targetDate = this.state.targetDate
 
         return (
@@ -95,7 +109,7 @@ class UsersComponent extends Component {
                         <h1>Users</h1>
                         <div className="">
                             <Formik
-                                initialValues={{ id, userAlias, idProfile }}
+                                initialValues={{ idUser, idProfile, userAlias }}
                                 onSubmit={this.onSubmit}
                                 validateOnChange={false}
                                 validateOnBlur={false}
@@ -128,7 +142,7 @@ class UsersComponent extends Component {
                                                 <Field className="form-control" type="password" name="password-compare" />
                                             </fieldset>
                                             <br />
-                                            
+
                                             <ButtonGroup className="float-end" aria-label="Basic example">
                                                 <Button className="btn btn-danger" variant="secondary" onClick={() => this.cancelUserClicked()} >Cancel</Button>
                                                 <Button className="btn btn-success" variant="secondary" type="submit">Save</Button>
