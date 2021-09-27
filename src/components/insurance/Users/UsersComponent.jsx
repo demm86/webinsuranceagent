@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import UsersDataService from '../../../api/insurance/UsersDataService'
+import ProfileDataService from '../../../api/insurance/ProfileDataService'
 import AuthenticationService from '../AuthenticationService'
 import { Col, Row, Button, ButtonGroup } from "react-bootstrap";
+import BootstrapSelect from 'react-bootstrap-select-dropdown';
+
 
 
 class UsersComponent extends Component {
@@ -11,11 +14,16 @@ class UsersComponent extends Component {
         super(props)
 
         this.state = {
-            idUser: this.props.match.params.id,
-            idProfile: '',
-            userAlias: '',
-            password: ''
-        }
+            profiles: [],
+            users: {
+                idUser: this.props.match.params.id,
+                idProfile: '',
+                userAlias: '',
+                password: ''
+            },
+            selectedIdprofile: ''
+        };
+
 
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
@@ -27,17 +35,56 @@ class UsersComponent extends Component {
 
         let userAlias = AuthenticationService.getLoggedInUserName()
 
-        if (this.state.idUser === 'Add') {
+        if (this.state.users.idUser === 'Add') {
             console.log("Add componentDidMount ")
             return
         }
 
-        UsersDataService.retrieveUser(this.state.idUser)
-            .then(response => this.setState({
-                idProfile: response.data.idProfile,
-                userAlias: response.data.userAlias,
-                password: response.data.password
-            }))
+
+
+
+        UsersDataService.retrieveUser(this.state.users.idUser)
+        .then(response => {
+
+            console.log(response);
+            this.setState({ users: response.data })
+
+            this.state.selectedIdprofile = this.state.users.idProfile;
+            console.log("this.state.selectedIdprofile")
+            console.log(this.state.users);
+            console.log(this.state.selectedIdprofile)
+
+
+            ProfileDataService.retrieveAllProfiles()
+            .then(
+                response => {
+                    console.log(response);
+                    //this.setState({ profiles: response.data })
+
+                    let profileFromApi = response.data.map(profiles => {
+                        return { value: profiles.idProfile, display: profiles.description }
+                    });
+                    this.setState({
+                        profiles: [{ value: '', display: '(Select your favourite team)' }].concat(profileFromApi)
+                    });
+
+                }
+            )
+
+        })
+
+
+
+
+
+
+
+
+
+
+
+        console.log(this.setState.profiles);
+
     }
 
     validate(values) {
@@ -63,14 +110,13 @@ class UsersComponent extends Component {
 
         let users = {};
 
-        if (this.state.idUser === "Add") {
+        if (this.state.users.idUser === "Add") {
 
             users = {
-                idProfile: values.idProfile,
+                idProfile: this.state.selectedIdprofile,
                 userAlias: values.userAlias,
                 password: values.password
             }
-            
             console.log("Add =>");
             console.log(users);
             UsersDataService.createUser(users)
@@ -78,17 +124,19 @@ class UsersComponent extends Component {
         } else {
 
             users = {
-                idUser: this.state.idUser,
-                idProfile: values.idProfile,
+                idUser: this.state.users.idUser,
+                idProfile: this.state.selectedIdprofile,
                 userAlias: values.userAlias,
                 password: values.password
             }
+            console.log("updateUser@@@")
+            console.log(users)
 
             UsersDataService.updateUser(users)
                 .then(() => this.props.history.push('/users'))
         }
 
-        console.log(values);
+        //
     }
 
     cancelUserClicked() {
@@ -97,10 +145,19 @@ class UsersComponent extends Component {
 
 
 
+    handleChangeBt = (selectedOptions) => {
+        console.log(selectedOptions);
+    }
+    
+   
+
+
     render() {
 
-        let { idUser, idProfile, userAlias, password } = this.state
-        //let targetDate = this.state.targetDate
+        let { idUser, userAlias, password } = this.state.users
+        let idProfile = this.state.users.idProfile
+        console.log("render");
+        console.log(this.state.users);
 
         return (
             <div>
@@ -129,10 +186,25 @@ class UsersComponent extends Component {
                                                 <label>User Name</label>
                                                 <Field className="form-control" type="text" name="userAlias" />
                                             </fieldset>
-                                            <fieldset className="form-group">
+                                            {/* <fieldset className="form-group">
                                                 <label>Profile</label>
                                                 <Field className="form-control" type="text" name="idProfile" />
+                                            </fieldset> */}
+
+                                            {/* <select value={this.state.users.idProfile} name="idProfile"
+                                                onChange={(e) => this.setState({ selectedIdprofile : e.target.value })}> */}
+
+                                            <fieldset className="form-group">
+                                                <label>Profile</label>
+                                                <select className="form-control" value={this.state.selectedIdprofile} name="idProfile"
+                                                   onChange={(e) => this.setState({selectedIdprofile: e.target.value})}>
+                                                    {this.state.profiles.map((profiles) => <option key={profiles.value} value={profiles.value}>{profiles.display}</option>)}
+                                                </select>
+
+                                            
                                             </fieldset>
+
+
                                             <fieldset className="form-group">
                                                 <label>Password</label>
                                                 <Field className="form-control" type="password" name="password" />
