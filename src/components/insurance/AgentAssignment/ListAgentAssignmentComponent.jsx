@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import PolicyStatusDataService from '../../../api/insurance/PolicyStatusDataService'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
+import AgentAssignmentDataService from '../../../api/insurance/AgentAssignmentDataService'
 
-class ListPolicyStatusComponent extends Component {
+class ListClientAssignmentComponent extends Component {
     constructor(props) {
         console.log('constructor')
         super(props)
         this.state = {
-            policyStatus: [],
+            agentAssignments: [],
             message: null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -36,19 +36,19 @@ class ListPolicyStatusComponent extends Component {
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
-        PolicyStatusDataService.retrieveAllPolicyStatus()
+        AgentAssignmentDataService.retrieveAllAgentAssignment()
             .then(
                 response => {
                     console.log(response);
-                    this.setState({ policyStatus: response.data })
+                    this.setState({ agentAssignments: response.data })
                 }
             )
     }
 
     deleteTodoClicked(id) {
-        let policyStatus = AuthenticationService.getLoggedInPolicyStatusName()
+        let username = AuthenticationService.getLoggedInUserName()
         //console.log(id + " " + username);
-        PolicyStatusDataService.deleteTodo(policyStatus, id)
+        AgentAssignmentDataService.deleteAgentAssignment(username, id)
             .then(
                 response => {
                     this.setState({ message: `Delete of todo ${id} Successful` })
@@ -59,12 +59,12 @@ class ListPolicyStatusComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/policyStatus/add`)
+        this.props.history.push(`/agentAssignment/add`)
     }
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/PolicyStatus/${id}`)
+        this.props.history.push(`/agentAssignment/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -82,26 +82,29 @@ class ListPolicyStatusComponent extends Component {
         console.log('render')
         return (
             <div>
-                <h1 className="left">List Todos</h1>
+                <h1 className="left">List Agent Assignment</h1>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>ID Status</th>
-                                <th>Description</th>
+                                <th>Employee</th>
+                                <th>Agent</th>
+                                <th>Active</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.policyStatus.map(
-                                    policyStatus =>
-                                        <tr key={policyStatus.idStatus}>
-                                            <td>{policyStatus.description}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(policyStatus.idStatus)}>Update</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(policyStatus.idStatus)}>Delete</button></td>
+                                this.state.agentAssignments.map(
+                                    agentAssignment =>
+                                        <tr key={agentAssignment.idAgentAssignments}>
+                                            <td>{agentAssignment.idEmployees}</td>
+                                            <td>{agentAssignment.idAgent}</td>
+                                            <td>{agentAssignment.active}</td>
+                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(agentAssignment.idAgentAssignments)}>Update</button></td>
+                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(agentAssignment.idAgentAssignments)}>Delete</button></td>
                                         </tr>
                                 )
                             }
@@ -116,4 +119,4 @@ class ListPolicyStatusComponent extends Component {
     }
 }
 
-export default ListPolicyStatusComponent
+export default ListClientAssignmentComponent

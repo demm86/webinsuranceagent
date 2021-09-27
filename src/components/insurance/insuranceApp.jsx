@@ -23,14 +23,12 @@ import ListPolicyStatusComponent from './PolicyStatus/ListPolicyStatusComponent'
 import ProfileComponent from './Profile/ProfilesComponent'
 import ListProfileComponent from './Profile/ListProfilesComponent'
 
+import EmployeeComponent from './Employee/EmployeeComponent'
+import ListEmployeeComponent from './Employee/ListEmployeeComponent'
 
+import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent.jsx'
+import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent.jsx'
 import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
-
-
-/*
-import ClientAssignmentComponent from './ClientAssignment/ClientAssignmentComponent'
-import ListClientAssignmentComponent from './ClientAssignment/ListClientAssignmentComponent'
-*/
 
 class TodoApp extends Component {
     render() {
@@ -62,12 +60,18 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
 
+                                        <AuthenticatedRoute path="/employee/add" component={EmployeeComponent}/>
+                                        <AuthenticatedRoute path="/employee/:id" component={EmployeeComponent}/>
+                                        <AuthenticatedRoute path="/employee" component={ListEmployeeComponent}/>
 
 
                                         <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent} />
                                         <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent} />
                                         <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent} />
 
+                                        <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
+                                        <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
+                                        <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
 
 
                                         {/*
@@ -75,19 +79,23 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/clientAssignment/:id" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment" component={ListClientAssignmentComponent}/>
 
-                            <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
-                            <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
-                            <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
+                            <AuthenticatedRoute path="/AgentAssignment/add" component={AgentAssignmentComponent}/>
+                            <AuthenticatedRoute path="/AgentAssignment/:id" component={AgentAssignmentComponent}/>
+                            <AuthenticatedRoute path="/AgentAssignment" component={ListAgentAssignmentComponent}/>
 
+                            
+
+                            <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent}/>
+                            <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent}/>
+                            <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent}/>
+{/*
                             <AuthenticatedRoute path="/profile/add" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile/:id" component={TodoComponent}/>
                             <AuthenticatedRoute path="/profile" component={ListTodosComponent}/>
 
                         
 
-                            <AuthenticatedRoute path="/Employee/add" component={TodoComponent}/>
-                            <AuthenticatedRoute path="/Employee/:id" component={TodoComponent}/>
-                            <AuthenticatedRoute path="/Employee" component={ListTodosComponent}/>
+                            
 
                             <AuthenticatedRoute path="/Customer/add" component={TodoComponent}/>
                             <AuthenticatedRoute path="/Customer/:id" component={TodoComponent}/>
