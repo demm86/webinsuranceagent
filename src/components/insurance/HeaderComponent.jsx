@@ -16,10 +16,9 @@ class HeaderComponent extends Component {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/welcome/">Home</Nav.Link></li>}
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Users">Users</Nav.Link></li>}
-                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Client">Client</Nav.Link></li>}
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Profile">Profile</Nav.Link></li>}
+                            {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Client">Client</Nav.Link></li>}
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/Employee">Employee</Nav.Link></li>}
                             {isUserLoggedIn && <li><Nav.Link className="nav-link" href="/InsurancePolicy">Policy</Nav.Link></li>}
 

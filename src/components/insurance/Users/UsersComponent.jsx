@@ -28,6 +28,23 @@ class UsersComponent extends Component {
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
 
+
+        ProfileDataService.retrieveAllProfiles()
+        .then(
+            response => {
+                console.log(response);
+                //this.setState({ profiles: response.data })
+
+                let profileFromApi = response.data.map(profiles => {
+                    return { value: profiles.idProfile, display: profiles.description }
+                });
+                this.setState({
+                    profiles: [{ value: '', display: '(Select one profile)' }].concat(profileFromApi)
+                });
+
+            }
+        )
+
     }
 
     componentDidMount() {
@@ -55,23 +72,11 @@ class UsersComponent extends Component {
             console.log(this.state.selectedIdprofile)
 
 
-            ProfileDataService.retrieveAllProfiles()
-            .then(
-                response => {
-                    console.log(response);
-                    //this.setState({ profiles: response.data })
 
-                    let profileFromApi = response.data.map(profiles => {
-                        return { value: profiles.idProfile, display: profiles.description }
-                    });
-                    this.setState({
-                        profiles: [{ value: '', display: '(Select your favourite team)' }].concat(profileFromApi)
-                    });
-
-                }
-            )
 
         })
+
+
 
 
 
@@ -196,7 +201,7 @@ class UsersComponent extends Component {
 
                                             <fieldset className="form-group">
                                                 <label>Profile</label>
-                                                <select className="form-control" value={this.state.selectedIdprofile} name="idProfile"
+                                                <select className="form-control" value={ this.state.selectedIdprofile ? this.state.selectedIdprofile : ''}  name="idProfile"
                                                    onChange={(e) => this.setState({selectedIdprofile: e.target.value})}>
                                                     {this.state.profiles.map((profiles) => <option key={profiles.value} value={profiles.value}>{profiles.display}</option>)}
                                                 </select>
