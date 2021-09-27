@@ -20,8 +20,8 @@ import ListClientComponent from './Client/ListClientComponent'
 import EmployeeComponent from './Employee/EmployeeComponent'
 import ListEmployeeComponent from './Employee/ListEmployeeComponent'
 
+import InsurancePolicyComponent from './InsurancePolicy/InsurancePolicyComponent.jsx'
 import ListInsurancePolicyComponent from './InsurancePolicy/ListInsurancePolicyComponent.jsx'
-
 import { Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
 
 class TodoApp extends Component {
@@ -57,6 +57,8 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
                                         <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
                                         <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
+
+
                                         {/*
                             <AuthenticatedRoute path="/clientAssignment/add" component={ClientAssignmentComponent}/>
                             <AuthenticatedRoute path="/clientAssignment/:id" component={ClientAssignmentComponent}/>
@@ -66,9 +68,7 @@ class TodoApp extends Component {
                             <AuthenticatedRoute path="/AgentAssignment/:id" component={AgentAssignmentComponent}/>
                             <AuthenticatedRoute path="/AgentAssignment" component={ListAgentAssignmentComponent}/>
 
-                            <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
-                            <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>
-                            <AuthenticatedRoute path="/insurancePolicy" component={ListInsurancePolicyComponent}/>
+                            
 
                             <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent}/>
                             <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent}/>

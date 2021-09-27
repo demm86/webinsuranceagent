@@ -7,16 +7,16 @@ class InsurancePolicyDataService{
 
 
 
-        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/insurancePolicy`);
+        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/InsurancePolicy`);
        
       
      }
 
-     retrieveInsurancePolicyAlias(name) {
+     /*retrieveInsurancePolicyAlias(name) {
        
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/insurancePolicyAlias/${name}`);
-    }
+        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/users/${name}`);
+    }*/
 
     retrieveInsurancePolicy(name, id) {
         //console.log('executed service')
@@ -33,9 +33,9 @@ class InsurancePolicyDataService{
         return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/insurancePolicy/${name}/todos/${id}`, todo);
     }
 
-    createinsurancePolicy(name, todo) {
+    createinsurancePolicy(todo) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/insurancePolicy/${name}/todos/`, todo);
+        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/insurancePolicy/todos/`, todo);
     }
 
 }

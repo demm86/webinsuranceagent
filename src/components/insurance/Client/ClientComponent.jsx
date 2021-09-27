@@ -76,7 +76,7 @@ class ClientComponent extends Component {
 
         let todo = {
             id: this.state.id,
-            idEmployee: values.idEmployee,
+            
             firstName: values.firstName,
             lastName: values.lastName,
             address: values.address,
@@ -98,7 +98,7 @@ class ClientComponent extends Component {
 
     render() {
 
-        let { idEmployee, firstName, lastName, address, email, phoneNumber, birthday} = this.state
+        let { firstName, lastName, address, email, phoneNumber, birthday} = this.state
         //let targetDate = this.state.targetDate
 
         return (
@@ -108,7 +108,7 @@ class ClientComponent extends Component {
                         <h1>Client</h1>
                         <div className="container">
                             <Formik
-                                initialValues={{ idEmployee, firstName, lastName, address, email, phoneNumber, birthday}}
+                                initialValues={{ firstName, lastName, address, email, phoneNumber, birthday}}
                                 onSubmit={this.onSubmit}
                                 validateOnChange={false}
                                 validateOnBlur={false}
@@ -135,10 +135,7 @@ class ClientComponent extends Component {
                                                 <ErrorMessage name="birthday" component="div"
                                                 className="alert alert-warning" />
                                 
-                                            <fieldset className="form-group">
-                                                <label>IdEmployee</label>
-                                                <Field className="form-control" type="text" name="idEmployee" />
-                                            </fieldset>
+                                            
                                             <fieldset className="form-group">
                                                 <label>firstName</label>
                                                 <Field className="form-control" type="text" name="firstName" />
