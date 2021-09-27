@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import ClientDataService from '../../../api/insurance/ClientDataService'
 import AuthenticationService from '../AuthenticationService'
 import moment from 'moment'
+import { Form, Col, Row, Button,ButtonGroup  } from "react-bootstrap";
 
+import * as Icon from 'react-bootstrap-icons';
 class ListClientComponent extends Component {
     constructor(props) {
         console.log('constructor')
@@ -96,32 +98,39 @@ class ListClientComponent extends Component {
                                 <th> Email</th>
                                 <th> Phone Number </th>
                                 <th> Birthday</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>Actions</th>                                
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 this.state.clients.map(
-                                    clients =>
-                                        <tr key={clients.idClient}>
-                                            <td>{clients.idEmployee}</td>
-                                            <td>{clients.firstName}</td>
-                                            <td>{clients.lastName}</td>
-                                            <td>{clients.address}</td>
-                                            <td>{clients.email}</td>
-                                            <td>{clients.phone}</td>
-                                            <td>{clients.birthday}</td>
-                                            <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(clients.idClient)}>Update</button></td>
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteTodoClicked(clients.idClient)}>Delete</button></td>
+                                    client =>
+                                        <tr key={client.idClient}>
+                                            <td>{client.idEmployee}</td>
+                                            <td>{client.firstName}</td>
+                                            <td>{client.lastName}</td>
+                                            <td>{client.address}</td>
+                                            <td>{client.email}</td>
+                                            <td>{client.phone}</td>
+                                            <td>{client.birthday}</td>
+                                            <td>
+                                            <ButtonGroup className="float-end" aria-label="Basic example">
+                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(client.idClient)}><Icon.Trash></Icon.Trash></Button>
+                                                            <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(client.idClient)}><Icon.Save></Icon.Save></Button>
+                                            </ButtonGroup>
+                                            </td>
                                         </tr>
                                 )
                             }
                         </tbody>
                     </table>
-                    <div className="row">
-                        <button className="btn btn-success" onClick={this.addTodoClicked}>Add</button>
-                    </div>
+                    <div className="">
+                                <Row>
+                                    <Col>
+                                        <button className="btn btn-success float-end" onClick={this.addTodoClicked}><Icon.PlusCircle></Icon.PlusCircle></button>
+                                    </Col>
+                                </Row>
+                            </div>
                 </div>
             </div>
         )
