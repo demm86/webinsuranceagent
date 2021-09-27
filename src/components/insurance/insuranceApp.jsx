@@ -54,20 +54,11 @@ class TodoApp extends Component {
                                         <AuthenticatedRoute path="/profile/:id" component={ProfileComponent} />
                                         <AuthenticatedRoute path="/profile" component={ListProfileComponent} />
 
-
-
-                                        <AuthenticatedRoute path="/client/add" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
 
-                                        <AuthenticatedRoute path="/employee/add" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee/:id" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee" component={ListEmployeeComponent}/>
-
-
-                                        <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent} />
-                                        <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent} />
-                                        <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent} />
 
                                         <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
                                         <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>

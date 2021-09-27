@@ -18,19 +18,19 @@ class EmployeeDataService {
         return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/employee/${id}`);
     }
 
-    deleteEmployee(id) {
+    async deleteEmployee(id) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/api/employee/${id}`);
+        return await AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/api/employee/${id}`);
     }
 
-    updateEmployee(employee) {
+    async updateEmployee(employee) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/api/employee`, employee);
+        return await AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/api/employee`, employee);
     }
 
-    createEmployee(employee) {
+    async createEmployee(employee) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/api/employee`, employee);
+        return await AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/api/employee`, employee);
     }
 
 }
