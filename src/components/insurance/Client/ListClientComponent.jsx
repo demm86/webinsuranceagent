@@ -84,7 +84,7 @@ class ListClientComponent extends Component {
         console.log('render')
         return (
             <div>
-                <h1 className="left">List Todos</h1>
+                <h1 className="left">List Client</h1>
                 {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
