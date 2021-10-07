@@ -72,24 +72,25 @@ class ClientComponent extends Component {
     }
 
     onSubmit(values) {
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let userAlias = AuthenticationService.getLoggedInUserName()
 
-        let todo = {
-            id: this.state.id,
-            
+        let client = {
+            id: this.state.id,  
             firstName: values.firstName,
             lastName: values.lastName,
             address: values.address,
             email: values.email,
             phoneNumber: values.phoneNumber,
-            birthday: values.birthday
+            birthday: values.birthday,
+            
+
         }
 
-        if (this.state.id === -1) {
-            ClientDataService.createTodo(clientname, todo)
+        if (this.state.id === 'add') {
+            ClientDataService.createTodo(userAlias, todo)
                 .then(() => this.props.history.push('/client'))
         } else {
-            ClientDataService.updateTodo(clientname, this.state.id, todo)
+            ClientDataService.updateTodo(userAlias, this.state.id, todo)
                 .then(() => this.props.history.push('/client'))
         }
 
