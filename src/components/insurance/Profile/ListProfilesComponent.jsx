@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import ProfileDataService from '../../../api/insurance/ProfileDataService'
 import AuthenticationService from '../AuthenticationService'
 
-import { Form, Col, Row, Button,ButtonGroup  } from "react-bootstrap";
+import { Form, Col, Row, Button, ButtonGroup } from "react-bootstrap";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 
 import * as Icon from 'react-bootstrap-icons';
 class ListProfilesComponent extends Component {
@@ -48,16 +51,30 @@ class ListProfilesComponent extends Component {
             )
     }
 
-    deleteTodoClicked(id) {
+    deleteTodoClicked(id,description) {
         let username = AuthenticationService.getLoggedInUserName()
-        //console.log(id + " " + username);
-        ProfileDataService.deleteProfile(id)
-            .then(
-                response => {
-                    this.setState({ message: `Delete of todo ${id} Successful` })
-                    this.refreshTodos()
+
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => ProfileDataService.deleteProfile(id)
+                        .then(
+                            response => {
+                                this.setState({ message: `Delete of profile ${id} - ${description} Successful` })
+                                this.refreshTodos()
+                            }
+                        )
+                },
+                {
+                    label: 'No',
+                    onClick: () => console.log("Action Canceled")
                 }
-            )
+            ]
+        });
+
 
     }
 
@@ -98,7 +115,7 @@ class ListProfilesComponent extends Component {
                                                     <td>{profile.description}</td>
                                                     <td>
                                                         <ButtonGroup className="float-end" aria-label="Basic example">
-                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(profile.idProfile)}><Icon.Trash></Icon.Trash></Button>
+                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(profile.idProfile,profile.description)}><Icon.Trash></Icon.Trash></Button>
                                                             <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(profile.idProfile)}><Icon.Save></Icon.Save></Button>
                                                         </ButtonGroup>
 

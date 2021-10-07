@@ -47,30 +47,18 @@ class TodoApp extends Component {
                                         <Route path="/login" component={LoginComponent} />
                                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
 
-<<<<<<< HEAD
-                                        <AuthenticatedRoute path="/users/add" component={UsersComponent} />
-=======
                                       
->>>>>>> 534dd9e58e83f7ab0f9bd64383dd79fe050613bb
                                         <AuthenticatedRoute path="/users/:id" component={UsersComponent} />
                                         <AuthenticatedRoute path="/users" component={ListUsersComponent} />
 
                                         <AuthenticatedRoute path="/profile/:id" component={ProfileComponent} />
                                         <AuthenticatedRoute path="/profile" component={ListProfileComponent} />
 
-
-
-                                        <AuthenticatedRoute path="/client/add" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client/:id" component={ClientComponent} />
                                         <AuthenticatedRoute path="/client" component={ListClientComponent} />
 
                                         <AuthenticatedRoute path="/employee/:id" component={EmployeeComponent}/>
                                         <AuthenticatedRoute path="/employee" component={ListEmployeeComponent}/>
-
-
-                                        <AuthenticatedRoute path="/policyStatus/add" component={PolicyStatusComponent} />
-                                        <AuthenticatedRoute path="/policyStatus/:id" component={PolicyStatusComponent} />
-                                        <AuthenticatedRoute path="/policyStatus" component={ListPolicyStatusComponent} />
 
                                         <AuthenticatedRoute path="/insurancePolicy/add" component={InsurancePolicyComponent}/>
                                         <AuthenticatedRoute path="/insurancePolicy/:id" component={InsurancePolicyComponent}/>

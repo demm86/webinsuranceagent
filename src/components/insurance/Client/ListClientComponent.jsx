@@ -48,12 +48,12 @@ class ListClientComponent extends Component {
     }
 
     deleteTodoClicked(id) {
-        let clientname = AuthenticationService.getLoggedInClientName()
+        let username = AuthenticationService.getLoggedInUserName()
         //console.log(id + " " + username);
-        ClientDataService.deleteTodo(clientname, id)
+        ClientDataService.deleteClient(id)
             .then(
                 response => {
-                    this.setState({ message: `Delete of todo ${id} Successful` })
+                    this.setState({ message: `Delete of client ${id} Successful` })
                     this.refreshTodos()
                 }
             )
@@ -66,7 +66,7 @@ class ListClientComponent extends Component {
 
     updateTodoClicked(id) {
         console.log('update ' + id)
-        this.props.history.push(`/Clients/${id}`)
+        this.props.history.push(`/Client/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);

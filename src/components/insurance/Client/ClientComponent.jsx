@@ -21,6 +21,8 @@ class ClientComponent extends Component {
             email: '',
             phone: '',
             birthday: '',
+            idUser: '',
+            idEmployee: '',
             users: [],
             employees: []
         }
@@ -32,16 +34,31 @@ class ClientComponent extends Component {
 
     componentDidMount() {
 
-        if (this.state.id === -1) {
+        if (this.state.id === 'add') {
+            UserDataService.retrieveAllUsers()
+            .then(response => this.setState({
+                users: response.data
+            }))
+
+        EmployeeDataService.retrieveAllEmployees()
+            .then(response => this.setState({
+                employees: response.data
+            }))
             return
         }
 
         let username = AuthenticationService.getLoggedInUserName()
 
-        ClientDataService.retrieveClient(username, this.state.id)
+        ClientDataService.retrieveClient(this.state.id)
             .then(response => this.setState({
-                description: response.data.description,
-                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                address: response.data.address,
+                email: response.data.email,
+                phone: response.data.phone,
+                birthday: response.data.birthday,
+                idUser: response.data.idUSer,
+                idEmployee: response.data.idEmployee
             }))
 
         UserDataService.retrieveAllUsers()
@@ -57,14 +74,28 @@ class ClientComponent extends Component {
 
     validate(values) {
         let errors = {}
-        if (!values.description) {
-            errors.description = 'Enter a Description'
-        } else if (values.description.length < 5) {
-            errors.description = 'Enter atleast 5 Characters in Description'
+        if (!values.firstName) {
+            errors.firstName = 'Enter a First Name'
         }
 
-        if (!moment(values.targetDate).isValid()) {
-            errors.targetDate = 'Enter a valid Target Date'
+        if (!values.lastName) {
+            errors.lastName = 'Enter a Last Name'
+        }
+
+        if (!values.address) {
+            errors.address = 'Enter a address'
+        }
+
+        if (!values.email) {
+            errors.email = 'Enter a email'
+        }
+
+        if (!values.phone) {
+            errors.phone = 'Enter a phone'
+        }
+
+        if (!values.birthday) {
+            errors.birthday = 'Enter a birthday'
         }
 
         return errors
@@ -72,14 +103,22 @@ class ClientComponent extends Component {
     }
 
     onSubmit(values) {
+<<<<<<< HEAD
         let userAlias = AuthenticationService.getLoggedInUserName()
 
         let client = {
             id: this.state.id,  
+=======
+        let username = AuthenticationService.getLoggedInUserName()
+
+        let client = {
+            id: this.state.id,
+>>>>>>> 7035fa6dc4e2ece3a69fe8729b98861d1aa91b26
             firstName: values.firstName,
             lastName: values.lastName,
             address: values.address,
             email: values.email,
+<<<<<<< HEAD
             phoneNumber: values.phoneNumber,
             birthday: values.birthday,
             
@@ -91,15 +130,51 @@ class ClientComponent extends Component {
                 .then(() => this.props.history.push('/client'))
         } else {
             ClientDataService.updateTodo(userAlias, this.state.id, todo)
+=======
+            phone: values.phone,
+            birthday: values.birthday
+        }
+
+        if (this.state.id === "add") {
+            let client = {
+                firstName: values.firstName,
+                lastName: values.lastName,
+                address: values.address,
+                email: values.email,
+                phone: values.phone,
+                birthday: values.birthday,
+                idUer: values.idUser,
+                idEmployee: values.idEmployee
+            }
+            ClientDataService.createClient(client)
+                .then(() => this.props.history.push('/client'))
+        } else {
+            let client = {
+                idClient: this.state.id,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                address: values.address,
+                email: values.email,
+                phone: values.phone,
+                birthday: values.birthday,
+                idUer: values.idUser,
+                idEmployee: values.idEmployee
+            }
+            ClientDataService.updateClient(client)
+>>>>>>> 7035fa6dc4e2ece3a69fe8729b98861d1aa91b26
                 .then(() => this.props.history.push('/client'))
         }
 
         console.log(values);
     }
 
+    cancelUserClicked() {
+        this.props.history.push(`/client`)
+    }
+
     render() {
 
-        let { firstName, lastName, address, email, phoneNumber, birthday} = this.state
+        let { firstName, lastName, address, email, phone, birthday, idUser, idEmployee} = this.state
         //let targetDate = this.state.targetDate
 
         return (
@@ -109,7 +184,7 @@ class ClientComponent extends Component {
                         <h1>Client</h1>
                         <div className="container">
                             <Formik
-                                initialValues={{ firstName, lastName, address, email, phoneNumber, birthday}}
+                                initialValues={{ firstName, lastName, address, email, phone, birthday, idUser, idEmployee}}
                                 onSubmit={this.onSubmit}
                                 validateOnChange={false}
                                 validateOnBlur={false}
@@ -155,7 +230,7 @@ class ClientComponent extends Component {
                                             </fieldset>
                                             <fieldset className="form-group">
                                                 <label>phoneNumber</label>
-                                                <Field className="form-control" type="text" name="phoneNumber" />
+                                                <Field className="form-control" type="text" name="phone" />
                                             </fieldset>
                                             <fieldset className="form-group">
                                                 <label>birthDay</label>
@@ -163,19 +238,19 @@ class ClientComponent extends Component {
                                             </fieldset>
                                             <fieldset className="form-group">
                                                 <label>User</label>
-                                                <select className="form-control" name="idUser">
+                                                <Field className="form-control" component="select" name="idUser">
                                                     { this.state.users.map(user =>
-                                                <option key={user.idUser} value={user.idUser}>{user.userAlias}</option>
+                                                        <option key={user.idUser} value={user.idUser}>{user.userAlias}</option>
                                                     )}
-                                                </select>
+                                                </Field>
                                             </fieldset>
                                             <fieldset className="form-group">
                                                 <label>Employee</label>
-                                                <select className="form-control" name="idEmployee">
+                                                <Field className="form-control" component="select" name="idEmployee">
                                                     { this.state.employees.map(employee =>
-                                                <option key={employee.idEmployee} value={employee.idEmployee}>{employee.firstName}</option>
+                                                        <option key={employee.idEmployee} value={employee.idEmployee}>{employee.firstName}</option>
                                                     )}
-                                                </select>
+                                                </Field>
                                             </fieldset>
                                             <br />
                                             

@@ -4,42 +4,29 @@ import AuthenticationService from '../../components/insurance/AuthenticationServ
 
 class ClientDataService {
 
-
-    
-    
     retrieveAllClients() {
 
-
-
        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/client`);
-      
-     
     }
 
-    retrieveClientName(name) {
-       
+    retrieveClient(id) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/client/${name}`);
+        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/api/client/${id}`);
     }
 
-    retrieveClient(name, id) {
+    deleteClient(id) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().get(`${JPA_API_URL}/client/${name}/todos/${id}`);
+        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/api/client/${id}`);
     }
 
-    deleteClient(name, id) {
+    updateClient(client) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().delete(`${JPA_API_URL}/client/${name}/todos/${id}`);
+        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/api/client`, client);
     }
 
-    updateClient(name, id, todo) {
+    createClient(client) {
         //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().put(`${JPA_API_URL}/client/${name}/todos/${id}`, todo);
-    }
-
-    createClient(name, todo) {
-        //console.log('executed service')
-        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/client/${name}/todos/`, todo);
+        return AuthenticationService.getsetupAxiosInterceptors().post(`${JPA_API_URL}/api/client`, client);
     }
 
 }

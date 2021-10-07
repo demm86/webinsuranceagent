@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import UsersDataService from '../../../api/insurance/UsersDataService'
 import AuthenticationService from '../AuthenticationService'
 
-import { Form, Col, Row, Button,ButtonGroup  } from "react-bootstrap";
+import { Form, Col, Row, Button, ButtonGroup } from "react-bootstrap";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 
 import * as Icon from 'react-bootstrap-icons';
 class ListUsersComponent extends Component {
@@ -48,16 +51,28 @@ class ListUsersComponent extends Component {
             )
     }
 
-    deleteTodoClicked(id) {
+    deleteTodoClicked(id,description) {
         let username = AuthenticationService.getLoggedInUserName()
-        //console.log(id + " " + username);
-        UsersDataService.deleteUser(id)
-            .then(
-                response => {
-                    this.setState({ message: `Delete of todo ${id} Successful` })
-                    this.refreshTodos()
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => UsersDataService.deleteUser(id)
+                        .then(
+                            response => {
+                                this.setState({ message: `Delete of user ${id} - ${description} Successful` })
+                                this.refreshTodos()
+                            }
+                        )
+                },
+                {
+                    label: 'No',
+                    onClick: () => console.log("Action Canceled")
                 }
-            )
+            ]
+        });
 
     }
 
@@ -111,7 +126,7 @@ class ListUsersComponent extends Component {
                                                     <td>{users.userAlias}</td>
                                                     <td>
                                                         <ButtonGroup className="float-end" aria-label="Basic example">
-                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(users.idUser)}><Icon.Trash></Icon.Trash></Button>
+                                                            <Button className="btn btn-danger" variant="secondary" onClick={() => this.deleteTodoClicked(users.idUser,users.userAlias)}><Icon.Trash></Icon.Trash></Button>
                                                             <Button className="btn " variant="primary" onClick={() => this.updateTodoClicked(users.idUser)}><Icon.Save></Icon.Save></Button>
                                                         </ButtonGroup>
 

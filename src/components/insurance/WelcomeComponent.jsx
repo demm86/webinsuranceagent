@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Form, Container, Col, Row, Button, ButtonGroup } from "react-bootstrap";
 //import HelloWorldService from '../../api/insurance/HelloWorldService.js'
 //mport HelloWorldService from '../../api/insurance/HelloWorldService'
 
@@ -18,19 +19,22 @@ class WelcomeComponent extends Component {
     render() {
         return (
             <>
+                <Row>
+                    <Col md={{ span: 6, offset: 3 }}>
                 <h1>Welcome!</h1>
                 <div className="container">
                     Welcome {this.props.match.params.name}.
-                    You can manage your todos <Link to="/todos">here</Link>.
+                    You can manage your Clients <Link to="/Client">here</Link>.
                 </div>
                 <div className="container">
-                    Click here to get a customized welcome message.
-                    <button onClick={this.retrieveWelcomeMessage}
-                        className="btn btn-success">Get Welcome Message</button>
+        
                 </div>
                 <div className="container">
                     {this.state.welcomeMessage}
                 </div>
+                </Col>
+                </Row>
+
 
             </>
         )
